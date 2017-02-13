@@ -1,0 +1,24 @@
+{
+  "message": "测试内容326v",
+  "model": [
+    {
+      "enabled": 13717,
+      "mallId": "测试内容oik6",
+      "nickName": "测试内容221f",
+      "personalTrainer": "测试内容2n7v",
+      "realName": "测试内容pxdl",
+      "userMail": "测试内容5o59",
+      "userMobile": "测试内容y15f",
+      "userName": "测试内容v4qq",
+      "userRegTime": "测试内容3u14",
+      "userType": 28102
+    }
+  ],
+  "query": {
+    "pageNum": 42353,
+    "pageSize": 26558,
+    "pages": 52201,
+    "total": 84122
+  },
+  "success": true
+}

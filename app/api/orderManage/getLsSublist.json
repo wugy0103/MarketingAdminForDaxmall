@@ -1,0 +1,46 @@
+{
+  "message": "测试内容76l0",
+  "model": [
+    {
+      "area": "测试内容8275",
+      "attribute": "测试内容7785",
+      "basketCount": 66045,
+      "cash": 33846,
+      "city": "测试内容z3l2",
+      "distCommisCash": 18215,
+      "dvyDate": "测试内容byw3",
+      "finallyDate": "测试内容50y5",
+      "idcardName": "测试内容bjup",
+      "idcardNo": "测试内容ikh0",
+      "mallBeanUseAmount": 51851,
+      "mallId": "测试内容r280",
+      "mobile": "测试内容erbg",
+      "name": "测试内容5fc8",
+      "nickName": "测试内容4rn4",
+      "operatorRemark": "测试内容tc73",
+      "partyCode": "测试内容5p61",
+      "payDate": "测试内容qihr",
+      "payUserInfo": "测试内容e6y8",
+      "prodName": "测试内容c6tp",
+      "province": "测试内容klr3",
+      "rebate": 46330,
+      "rebateAmount": 73571,
+      "receiver": "测试内容3zdw",
+      "sellId": "测试内容33o6",
+      "status": "测试内容9ryl",
+      "subAddrs": "测试内容vjlg",
+      "subDate": "测试内容u1fz",
+      "subNumber": "测试内容csq9",
+      "subPost": "测试内容15lo",
+      "subSettlementSn": "测试内容0o52"
+    }
+  ],
+  "query": {
+    "pageNum": 25626,
+    "pageSize": 21301,
+    "pages": 38755,
+    "total": 75021
+  },
+  "resultCode": "测试内容23pm",
+  "success": false
+}

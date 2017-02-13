@@ -1,0 +1,12 @@
+<div class="form-group">
+    <label class="col-md-2 control-label">{{label}}</label>
+    <div class="col-md-6">
+        <input type="text" readonly="" class="form-control" placeholder="{{placeholder}}">
+        <input type="file" name="image" ng-model="image" base-sixty-four-input accept="image/*" parser="getImageInfo">
+        <small class="text-danger" ng-show="uploadError" ng-bind="uploadError"></small>
+        <i ng-class={'is-loading':isLoading} class="fa fa-spinner" aria-hidden="true"></i>
+    </div>
+    <div class="col-md-4">
+        <img ng-src="{{src}}" alt="" class="mh50" />
+    </div>
+</div>

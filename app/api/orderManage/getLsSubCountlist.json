@@ -1,0 +1,20 @@
+{
+  "message": "测试内容d3w6",
+  "model": [
+    {
+      "averagePrice": 32283,
+      "commoditySum": 20186,
+      "date": "测试内容m2ln",
+      "subSum": 41425,
+      "sumMoney": 31678
+    }
+  ],
+  "query": {
+    "pageNum": 73213,
+    "pageSize": 50616,
+    "pages": 64686,
+    "total": 84464
+  },
+  "resultCode": "测试内容3bi6",
+  "success": true
+}
