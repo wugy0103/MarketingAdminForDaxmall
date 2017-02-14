@@ -19,10 +19,10 @@ App.config(function($stateProvider, $urlRouterProvider,$locationProvider,$qProvi
             url: '/User/Login',
             templateUrl: 'views/User/Login.html'
         })
-        //报表模块-》订单管理
-        .state('orderManage', {
-            url: '/reportManage/orderManage',
-            templateUrl: 'views/reportManage/orderManage.html'
+        //营销模块-》秒杀
+        .state('seckillActivity', {
+            url: '/marketingActivity/seckillActivity',
+            templateUrl: 'views/marketingActivity/seckillActivity.html'
         })
 
 });

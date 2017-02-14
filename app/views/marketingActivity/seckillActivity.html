@@ -1,0 +1,398 @@
+<article ng-controller="seckillActivityController" class="orderManage">
+    <!-- 上部分 -->
+    <form action="{{sce.exportUrl}}" method="POST" ng-enter="search()">
+        <section class="parameter">
+            <div class="row">
+                <div class="dropdown form-group col-lg-3">
+                    <label class="col-md-2 control-label">下单时间</label>
+                    <div class="dropdown-toggle col-md-8" id="startDate" role="button" data-toggle="dropdown">
+                        <div class="input-group date">
+                            <input type="text" class="form-control" disabled ng-model="startDate"
+                                   datetime-transform
+                                   format="yyyy-MM-dd HH:mm">
+                            <input type="hidden" name="startDate" value="{{data.startDate}}"/>
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                        </div>
+                    </div>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="startDate">
+                        <datetimepicker data-ng-model="startDate"
+                                        data-datetimepicker-config="{ dropdownSelector: '#startDate'}" data-on-set-time="OnSetTime('startDate')"></datetimepicker>
+                    </ul>
+                </div>
+                <div class="dropdown form-group col-lg-3">
+                    <label class="col-md-1 control-label">至</label>
+                    <div class="dropdown-toggle col-md-8" id="endDate" role="button" data-toggle="dropdown">
+                        <div class="input-group date">
+                            <input type="text" class="form-control" disabled ng-model="endDate"
+                                   datetime-transform
+                                   format="yyyy-MM-dd HH:mm">
+                            <input type="hidden" name="endDate" value="{{data.endDate}}"/>
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                        </div>
+                    </div>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="endDate">
+                        <datetimepicker data-ng-model="endDate"
+                                        data-datetimepicker-config="{ dropdownSelector: '#endDate'}" data-on-set-time="OnSetTime('endDate')"></datetimepicker>
+                    </ul>
+                </div>
+
+                <div class="dropdown form-group col-lg-3">
+                    <label class="col-md-2 control-label">付款时间</label>
+                    <div class="dropdown-toggle col-md-8" id="finishPayStartDate" role="button" data-toggle="dropdown">
+                        <div class="input-group date">
+                            <input type="text" class="form-control" disabled ng-model="finishPayStartDate"
+                                   datetime-transform
+                                   format="yyyy-MM-dd HH:mm">
+                            <input type="hidden" name="finishPayStartDate" value="{{data.finishPayStartDate}}"/>
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                        </div>
+                    </div>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="finishPayStartDate">
+                        <datetimepicker data-ng-model="finishPayStartDate"
+                                        data-datetimepicker-config="{ dropdownSelector: '#finishPayStartDate'}" data-on-set-time="OnSetTime('finishPayStartDate')"></datetimepicker>
+                    </ul>
+                </div>
+                <div class="dropdown form-group col-lg-3">
+                    <label class="col-md-1 control-label">至</label>
+                    <div class="dropdown-toggle col-md-8" id="finishPayEndDate" role="button" data-toggle="dropdown">
+                        <div class="input-group date">
+                            <input type="text" class="form-control" disabled ng-model="finishPayEndDate" name="finishPayEndDate"
+                                   datetime-transform
+                                   format="yyyy-MM-dd HH:mm">
+                            <input type="hidden" name="finishPayEndDate" value="{{data.finishPayEndDate}}"/>
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                        </div>
+                    </div>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="finishPayEndDate">
+                        <datetimepicker data-ng-model="finishPayEndDate"
+                                        data-datetimepicker-config="{ dropdownSelector: '#finishPayEndDate'}" data-on-set-time="OnSetTime('finishPayEndDate')"></datetimepicker>
+                    </ul>
+                </div>
+
+                <div class="form-group col-lg-3">
+                    <label class="col-md-2 control-label">订单性质</label>
+
+                    <div class="col-md-8">
+                        <ui-select allow-clear ng-model="data.isOverseaOrder" theme="bootstrap">
+                            <ui-select-match>{{$select.selected.stauts}}</ui-select-match>
+                            <ui-select-choices repeat="item.status_id as item in zhuangtai1 | filter: $select.search"
+                                               value="{{$select.selected.status_id}}">
+                                <span ng-bind-html="item.stauts | highlight: $select.search"></span>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                    <input type="hidden" name="isOverseaOrder" value="{{data.isOverseaOrder}}"/>
+                </div>
+
+                <div class="form-group col-lg-3">
+                    <label class="col-md-2 control-label">订单状态</label>
+
+                    <div class="col-md-8">
+                        <ui-select allow-clear ng-model="data.status" theme="bootstrap">
+                            <ui-select-match>{{$select.selected.stauts}}</ui-select-match>
+                            <ui-select-choices repeat="item.status_id as item in zhuangtai2 | filter: $select.search"
+                                               value="{{$select.selected.status_id}}">
+                                <span ng-bind-html="item.stauts | highlight: $select.search"></span>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                    <input type="hidden" name="status" value="{{data.status}}"/>
+                </div>
+
+                <div class="form-group col-lg-3">
+                    <label class="col-md-2 control-label">订单编号</label>
+
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" ng-model="data.subNumber" name="subNumber">
+                    </div>
+                </div>
+
+                <div class="form-group col-lg-3">
+                    <label class="col-md-2 control-label">订单类型</label>
+
+                    <div class="col-md-8">
+                        <ui-select allow-clear ng-model="data.subType" theme="bootstrap">
+                            <ui-select-match>{{$select.selected.stauts}}</ui-select-match>
+                            <ui-select-choices repeat="item.status_id as item in zhuangtai3 | filter: $select.search"
+                                               value="{{$select.selected.status_id}}">
+                                <span ng-bind-html="item.stauts | highlight: $select.search"></span>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                    <input type="hidden" value="{{data.subType}}" name="subType"/>
+                </div>
+
+                <div class="form-group col-lg-3">
+                    <label class="col-md-2 control-label">用户名</label>
+
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" ng-model="data.userName" name="userName">
+                    </div>
+                </div>
+
+                <div class="form-group col-lg-3">
+                    <label class="col-md-2 control-label">收货人</label>
+
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" ng-model="data.receiver" name="receiver">
+                    </div>
+                </div>
+
+                <div class="form-group col-lg-3">
+                    <label class="col-md-3 control-label">收货人手机号</label>
+
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" ng-model="data.mobile" name="mobile">
+                    </div>
+                </div>
+
+                <div class="form-group col-lg-3">
+                    <label class="col-md-1 control-label">猫号</label>
+
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" ng-model="data.mallId" name="mallId">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="parameter-btn">
+            <button type="button" class="btn btn-raised btn-primary" ng-click="search()">查询</button>
+            <button type="button" class="btn btn-raised btn-default" ng-click="reset()">重置查询条件</button>
+            <button type="submit" class="btn btn-raised btn-detault">导出</button>
+        </div>
+    </form>
+    <!-- 下部分 -->
+    <section>
+        <div class="table-responsive">
+            <table class="table table-hover" float-thead="floatTheadOptions">
+                <thead class="table-head">
+                <tr class="active">
+                    <th>序号</th>
+                    <th>交易支付号</th>
+                    <th>商品订单号</th>
+                    <th>下单时间</th>
+                    <th>订单状态</th>
+                    <th>昵称</th>
+                    <th>收货人姓名</th>
+                    <th>收货人手机号</th>
+                    <th>支付时间</th>
+                    <th>猫号</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="orderList in orderData.model">
+                    <td>{{$index+1}}</td>
+                    <td>{{orderList.subSettlementSn}}</td>
+                    <td>{{orderList.subNumber}}</td>
+                    <td>{{orderList.subDate}}</td>
+                    <td>{{orderList.status}}</td>
+                    <td>{{orderList.nickName}}</td>
+                    <td>{{orderList.receiver}}</td>
+                    <td>{{orderList.mobile}}</td>
+                    <td>{{orderList.payDate}}</td>
+                    <td>{{orderList.mallId}}</td>
+                    <td>
+                        <a href="javascript:;" class="text-primary" ng-click="orderListDetails(orderList)">查看详情</a>
+                    </td>
+
+                </tr>
+                </tbody>
+            </table>
+            <div ng-if="!orderData.model.length" class="noData text-center">暂无数据</div>
+        </div>
+        <section style="margin:0 0 10px 5px;">本次查询共 <strong>{{orderData.query.total || 0}}</strong>个结果</section>
+        <div class="row">
+            <div class="col-md-9">
+                <select class="page-size" ng-model="data.pageSize" ng-change="pageChanged()">
+                    <option value="20" ng-selected="true">每页显示20条</option>
+                    <option value="40">每页显示40条</option>
+                    <option value="60">每页显示60条</option>
+                    <option value="80">每页显示80条</option>
+                    <option value="100">每页显示100条</option>
+                </select>
+                <uib-pagination ng-change="pageChanged()" ng-model="data.pageNum" total-items="orderData.query.total"
+                                max-size="maxSize" items-per-page="data.pageSize" class="pagination-sm"
+                                boundary-link-numbers="true"
+                                rotate="false" previous-text="上一页" next-text="下一页"></uib-pagination>
+            </div>
+            <div class="col-md-3 text-right">
+                <span>跳转到</span>
+                <input type="text" ng-model="toPageNum" class="variant-form-control">
+                <button ng-click="setPage()" class="to-page-num">确定</button>
+            </div>
+        </div>
+    </section>
+</article>
+<!--查看详情-->
+<script type="text/ng-template" id="orderListDetails.html" class="modal-lg">
+    <div class="panel  tk-box  orderListDetails">
+        <div class="panel-heading">
+            <h4>订单详细</h4></div>
+        <div class="panel-body">
+            <div class="row">
+                <div class=" col-lg-4">
+                    <label class="col-md-4 text-right">地区:</label>
+
+                    <div class="col-md-8">{{item.area}}</div>
+                </div>
+                <div class="col-lg-4">
+                    <label class="col-md-4 text-right">商品属性:</label>
+
+                    <div class="col-md-8">{{item.attribute}}</div>
+                </div>
+                <div class="col-lg-4">
+                    <label class="col-md-4 text-right">数量:</label>
+
+                    <div class="col-md-8">{{item.basketCount}}</div>
+                </div>
+                <div class="col-lg-4">
+                    <label class="col-md-4 text-right">一口价:</label>
+
+                    <div class="col-md-8">{{item.cash}}</div>
+                </div>
+                <div class="col-lg-4">
+                    <label class="col-md-4 text-right">城市:</label>
+
+                    <div class="col-md-8">{{item.city}}</div>
+                </div>
+                <div class="col-lg-4">
+                    <label class="col-md-4 text-right">分销的佣金金额:</label>
+
+                    <div class="col-md-8">{{item.distCommisCash}}</div>
+                </div>
+                <div class="col-lg-4">
+                    <label class="col-md-4 text-right">发货时间:</label>
+
+                    <div class="col-md-8">{{item.dvyDate}}</div>
+                </div>
+                <div class="col-lg-4">
+                    <label class="col-md-4 text-right">确认收货时间:</label>
+
+                    <div class="col-md-8">{{item.finallyDate}}</div>
+                </div>
+                <div class="col-lg-4">
+                    <label class="col-md-4 text-right">身份证姓名:</label>
+
+                    <div class="col-md-8">{{item.idcardName}}</div>
+                </div>
+                <div class="col-lg-4">
+                    <label class="col-md-4 text-right">身份证号码:</label>
+
+                    <div class="col-md-8">{{item.idcardNo}}</div>
+                </div>
+                <div class="col-lg-4">
+                    <label class="col-md-4 text-right">猫豆:</label>
+
+                    <div class="col-md-8">{{item.mallBeanUseAmount}}</div>
+                </div>
+                <div class="col-lg-4">
+                    <label class="col-md-4 text-right">猫号:</label>
+
+                    <div class="col-md-8">{{item.mallId}}</div>
+                </div>
+                <div class="col-lg-4">
+                    <label class="col-md-4 text-right">收货人手机号:</label>
+
+                    <div class="col-md-8">{{item.mobile}}</div>
+                </div>
+                <div class="col-lg-4">
+                    <label class="col-md-4 text-right">类目:</label>
+
+                    <div class="col-md-8">{{item.name}}</div>
+                </div>
+                <div class="col-lg-4">
+                    <label class="col-md-4 text-right">昵称:</label>
+
+                    <div class="col-md-8">{{item.nickName}}</div>
+                </div>
+
+                <div class="col-lg-4">
+                    <label class="col-md-4 text-right">供货商名称:</label>
+
+                    <div class="col-md-8">{{item.supplierName}}</div>
+                </div>
+                <div class="col-lg-4">
+                    <label class="col-md-4 text-right">支付时间:</label>
+
+                    <div class="col-md-8">{{item.payDate}}</div>
+                </div>
+                <div class="col-lg-4">
+                    <label class="col-md-4 text-right">支付宝帐号:</label>
+
+                    <div class="col-md-8">{{item.payUserInfo}}</div>
+                </div>
+                <div class="col-lg-4">
+                    <label class="col-md-4 text-right">商品名称:</label>
+
+                    <div class="col-md-8">{{item.prodName}}</div>
+                </div>
+                <div class="col-lg-4">
+                    <label class="col-md-4 text-right">省份:</label>
+
+                    <div class="col-md-8">{{item.province}}</div>
+                </div>
+                <div class="col-lg-4">
+                    <label class="col-md-4 text-right">返利百分比:</label>
+
+                    <div class="col-md-8">{{item.rebate}}</div>
+                </div>
+                <div class="col-lg-4">
+                    <label class="col-md-4 text-right">返利:</label>
+
+                    <div class="col-md-8">{{item.rebateAmount}}</div>
+                </div>
+                <div class="col-lg-4">
+                    <label class="col-md-4 text-right">收货人姓名:</label>
+
+                    <div class="col-md-8">{{item.receiver}}</div>
+                </div>
+                <div class="col-lg-4">
+                    <label class="col-md-4 text-right">分销的用户名:</label>
+
+                    <div class="col-md-8">{{item.sellId}}</div>
+                </div>
+                <div class="col-lg-4">
+                    <label class="col-md-4 text-right">订单状态:</label>
+
+                    <div class="col-md-8">{{item.status}}</div>
+                </div>
+                <div class="col-lg-4">
+                    <label class="col-md-4 text-right">收货地址:</label>
+
+                    <div class="col-md-8">{{item.subAddrs}}</div>
+                </div>
+                <div class="col-lg-4">
+                    <label class="col-md-4 text-right">下单时间:</label>
+
+                    <div class="col-md-8">{{item.subDate}}</div>
+                </div>
+                <div class="col-lg-4">
+                    <label class="col-md-4 text-right">商品订单号:</label>
+
+                    <div class="col-md-8">{{item.subNumber}}</div>
+                </div>
+                <div class="col-lg-4">
+                    <label class="col-md-4 text-right">邮编:</label>
+
+                    <div class="col-md-8">{{item.subPost}}</div>
+                </div>
+                <div class="col-lg-4">
+                    <label class="col-md-4 text-right">交易支付号:</label>
+
+                    <div class="col-md-8">{{item.subSettlementSn}}</div>
+                </div>
+                <div class="col-lg-4">
+                    <label class="col-md-4 text-right">备注:</label>
+
+                    <div class="col-md-8">{{item.operatorRemark}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-heading" style="overflow:hidden;">
+            <div class="pull-right">
+                <button class="btn withripple btn-raised btn-primary" type="button" ng-click="close()">确认</button>
+            </div>
+        </div>
+    </div>
+</script>
