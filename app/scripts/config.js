@@ -28,10 +28,10 @@ App.run(['$rootScope', 'Session', function ($rootScope) {
     $rootScope.api = {
         //登陆接口
         login: $rootScope.BASEURL + "login/doLogin",
-        //查询订单
-        getLsSublist: $rootScope.BASEURL + "lsSub/list",
-        //导出订单
-        getLsSubexp: $rootScope.BASEURL + "lsSub/exp",
+        //查询活动
+        queryActivity: $rootScope.BASEURL + "miaosha/queryActivity",
+        //新增、编辑活动
+        saveActivity: $rootScope.BASEURL + "miaosha/saveActivity",
         //查询用户
         getLsUserlist: $rootScope.BASEURL + "lsUser/list",
         //导出用户

@@ -6,50 +6,26 @@
  */
 
 'use strict';
-App.controller("seckillActivityController", function ($scope, ngProgressFactory, restful, $rootScope, $uibModal, toastr,$sce) {
+App.controller("seckillActivityController", function ($scope, ngProgressFactory, restful, $rootScope, $uibModal, toastr) {
     $scope.progressbar = ngProgressFactory.createInstance();
-    $scope.data = {};
-    $scope.zhuangtai1 = [{
-        stauts: "海外订单",
-        status_id: "O"
-    }, {
-        stauts: "国内订单",
-        status_id: "N"
-    }];
+    $scope.data = {status:1,actType:0};
     $scope.zhuangtai2 = [{
-        stauts: "未付款",
-        status_id: "1"
-    }, {
-        stauts: "待发货",
+        stauts: "已过期",
         status_id: "2"
+    },{
+        stauts: "已上线",
+        status_id: "1"
+    },  {
+        stauts: "待编辑",
+        status_id: "0"
     }, {
-        stauts: "已发货",
-        status_id: "3"
-    }, {
-        stauts: "交易成功",
-        status_id: "4"
-    }, {
-        stauts: "交易失败",
-        status_id: "5"
-    }];
-    $scope.zhuangtai3 = [{
-        stauts: "正常订单",
-        status_id: "N"
-    }, {
-        stauts: "定金",
-        status_id: "D"
-    }, {
-        stauts: "尾款",
-        status_id: "F"
+        stauts: "已删除",
+        status_id: "-1"
     }];
     //分页
     $scope.data.pageNum = $rootScope.PAGINATION_CONFIG.PAGEINDEX;
     $scope.data.pageSize = $rootScope.PAGINATION_CONFIG.PAGESIZE;
     $scope.maxSize= $rootScope.PAGINATION_CONFIG.MAXSIZE;
-    //url安全转义
-    $scope.sce = {
-        exportUrl: $sce.trustAsResourceUrl($rootScope.api.getLsSubexp),
-    }
     //时间转时间戳
     $scope.OnSetTime = function (time) {
         $scope.data[time] = new Date($scope[time]).getTime();
@@ -58,11 +34,10 @@ App.controller("seckillActivityController", function ($scope, ngProgressFactory,
     $scope.query = function () {
         $scope.progressbar.start();
         console.log("param",$scope.data)
-        $scope.orderPromise = restful.fetch($rootScope.api.getLsSublist, "POST", $scope.data).then(function(res) {
-
+        $scope.activityPromise = restful.fetch($rootScope.api.queryActivity, "POST", $scope.data).then(function(res) {
             console.log(res)
             if(!!res.success){
-                $scope.orderData = res;
+                $scope.activityData = res;
             }else {
                 toastr.error(res.message,"服务器错误：");
             }
@@ -77,11 +52,8 @@ App.controller("seckillActivityController", function ($scope, ngProgressFactory,
     $scope.query();
     //重置
     $scope.reset = function () {
-        $scope.data = {};
-        $scope.startDate=$scope.data.startDate;
-        $scope.endDate=$scope.data.startDate;
-        $scope.finishPayStartDate=$scope.data.startDate;
-        $scope.finishPayEndDate=$scope.data.startDate;
+        $scope.data = {status:1,actType:0};
+        $scope.activityStartDate=$scope.data.activityStartDate;
         $scope.toPageNum = 1;
         $scope.data.pageNum = $rootScope.PAGINATION_CONFIG.PAGEINDEX;
         $scope.data.pageSize = $rootScope.PAGINATION_CONFIG.PAGESIZE;
@@ -97,10 +69,25 @@ App.controller("seckillActivityController", function ($scope, ngProgressFactory,
         $scope.data.pageNum = $scope.toPageNum;
         $scope.query();
     };
-    $scope.orderListDetails = function(items) {
+  //添加
+  $scope.add = function() {
+    var modalInstance = $uibModal.open({
+      templateUrl: 'addActivity.html',
+      controller: 'addActivityController',
+      size: 'lg'
+    });
+    modalInstance.result.then(function() {
+      //close
+      $scope.data = {status:0,actType:0};
+      $scope.query();
+    }, function () {
+        //$scope.query();
+    })
+  };
+    $scope.activityListDetails = function(items) {
         var modalInstance = $uibModal.open({
-            templateUrl: 'orderListDetails.html',
-            controller: 'orderListDetailsController',
+            templateUrl: 'activityListDetails.html',
+            controller: 'activityListDetailsController',
             size: "lg",
             resolve: {
                 items: function() {
@@ -110,8 +97,39 @@ App.controller("seckillActivityController", function ($scope, ngProgressFactory,
         });
     }
 });
+//添加
+App.controller("addActivityController", function($scope, $uibModalInstance, restful,$rootScope, $uibModal, toastr,ngProgressFactory) {
+    $scope.progressbar = ngProgressFactory.createInstance();
+  $scope.data = {actType:0};//0-秒杀 1-限时特卖
+    //时间转时间戳
+    $scope.OnSetTime = function (time) {
+        $scope.data[time] = new Date($scope[time]).getTime();
+    }
+    $scope.save = function() {
+        $scope.progressbar.start();
+        console.log("param",$scope.data)
+        restful.fetch($rootScope.api.saveActivity, "POST", $scope.data).then(function(res) {
+        console.log(res)
+        if(!!res.success){
+            $uibModalInstance.close('success');
+        }else {
+            toastr.error(res.message,"服务器提示：");
+        }
+        $scope.progressbar.complete();
+
+    }, function(rej) {
+        console.log(rej);
+        $scope.progressbar.complete();
+        toastr.error(rej.status+"("+rej.statusText+")","请求失败：");
+    })
+  };
+
+  $scope.close = function() {
+    $uibModalInstance.dismiss('dismiss');
+  };
+});
 //举报内容
-App.controller("orderListDetailsController", function ($scope, $uibModalInstance, items) {
+App.controller("activityListDetailsController", function ($scope, $uibModalInstance, items) {
     $scope.item = items;
     $scope.close = function () {
         $uibModalInstance.dismiss('close');

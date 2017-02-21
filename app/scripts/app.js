@@ -24,6 +24,11 @@ App.config(function($stateProvider, $urlRouterProvider,$locationProvider,$qProvi
             url: '/marketingActivity/seckillActivity',
             templateUrl: 'views/marketingActivity/seckillActivity.html'
         })
+        //营销模块-》限时特价
+        .state('timeLimitSale', {
+            url: '/marketingActivity/timeLimitSale',
+            templateUrl: 'views/marketingActivity/timeLimitSale.html'
+        })
 
 });
 
