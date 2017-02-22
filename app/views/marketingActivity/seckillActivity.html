@@ -99,38 +99,73 @@
 </article>
 <!--添加弹框-->
 <script type="text/ng-template" id="addActivity.html">
-  <form name="addActivityForm">
-    <div class="panel-body">
-      <h4>添加活动</h4>
-        <div class="row">
-            <div class="dropdown form-group col-lg-6">
-                <label class="col-md-2 control-label">开始时间</label>
+    <form name="addActivityForm">
+        <div class="panel-body">
+            <h4>添加活动</h4>
+            <div class="row">
+                <div class="dropdown form-group col-lg-6">
+                    <label class="col-md-2 control-label">开始时间</label>
 
-                <div class="dropdown-toggle col-md-8" id="startDate" role="button" data-toggle="dropdown">
-                    <div class="input-group date">
-                        <input type="text" class="form-control" disabled ng-model="startDate"
-                               datetime-transform
-                               format="yyyy-MM-dd HH:mm">
-                        <input type="hidden" name="startDate" value="{{data.startDate}}"/>
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                    <div class="dropdown-toggle col-md-8" id="startDate" role="button" data-toggle="dropdown">
+                        <div class="input-group date">
+                            <input type="text" class="form-control" disabled ng-model="startDate"
+                                   datetime-transform
+                                   format="yyyy-MM-dd HH:mm">
+                            <input type="hidden" name="startDate" value="{{data.startDate}}"/>
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                        </div>
                     </div>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="startDate">
+                        <datetimepicker data-ng-model="startDate"
+                                        data-datetimepicker-config="{ dropdownSelector: '#startDate'}"
+                                        data-on-set-time="OnSetTime('startDate')"></datetimepicker>
+                    </ul>
                 </div>
-                <ul class="dropdown-menu" role="menu" aria-labelledby="startDate">
-                    <datetimepicker data-ng-model="startDate"
-                                    data-datetimepicker-config="{ dropdownSelector: '#startDate'}"
-                                    data-on-set-time="OnSetTime('startDate')"></datetimepicker>
-                </ul>
             </div>
         </div>
-    </div>
-    <div class="modal-footer">
-      <span class="text-danger pull-left" ng-bind="error"></span>
-      <button class="btn withripple btn-raised btn-primary" type="button" ng-click="save()"
-              ng-disabled="!addActivityForm.$valid">保存
-      </button>
-      <button class="btn withripple btn-raised btn-warning" type="button" ng-click="close()">关闭</button>
-    </div>
-  </form>
+        <div class="modal-footer">
+            <span class="text-danger pull-left" ng-bind="error"></span>
+            <button class="btn withripple btn-raised btn-primary" type="button" ng-click="save()"
+                    ng-disabled="!addActivityForm.$valid">保存
+            </button>
+            <button class="btn withripple btn-raised btn-warning" type="button" ng-click="close()">关闭</button>
+        </div>
+    </form>
+</script>
+<!--编辑弹框-->
+<script type="text/ng-template" id="editActivity.html">
+    <form name="editActivityForm">
+        <div class="panel-body">
+            <h4>编辑活动</h4>
+            <div class="row">
+                <div class="dropdown form-group col-lg-6">
+                    <label class="col-md-2 control-label">开始时间</label>
+
+                    <div class="dropdown-toggle col-md-8" id="startDate1" role="button" data-toggle="dropdown">
+                        <div class="input-group date">
+                            <input type="text" class="form-control" disabled ng-model="item.startDate"
+                                   datetime-transform
+                                   format="yyyy-MM-dd HH:mm">
+                            <input type="hidden" name="startDate1" value="{{item.startDate}}"/>
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                        </div>
+                    </div>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="startDate1">
+                        <datetimepicker data-ng-model="item.startDate"
+                                        data-datetimepicker-config="{ dropdownSelector: '#startDate1'}"
+                                        data-on-set-time="OnSetTime('startDate')"></datetimepicker>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <span class="text-danger pull-left" ng-bind="error"></span>
+            <button class="btn withripple btn-raised btn-primary" type="button" ng-click="save()"
+                    ng-disabled="!editActivityForm.$valid">保存
+            </button>
+            <button class="btn withripple btn-raised btn-warning" type="button" ng-click="close()">关闭</button>
+        </div>
+    </form>
 </script>
 <!--查看详情-->
 <script type="text/ng-template" id="activityListDetails.html" class="modal-lg">

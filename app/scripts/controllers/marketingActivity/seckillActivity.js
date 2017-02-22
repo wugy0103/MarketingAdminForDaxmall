@@ -84,6 +84,25 @@ App.controller("seckillActivityController", function ($scope, ngProgressFactory,
         //$scope.query();
     })
   };
+    //编辑
+    $scope.editActivity = function (items) {
+        var modalInstance = $uibModal.open({
+            templateUrl: 'editActivity.html',
+            controller: 'editActivityController',
+            size: 'lg',
+            resolve: {
+                items: function () {
+                    return items;
+                }
+            }
+        });
+        modalInstance.result.then(function () {
+            //close
+            $scope.query();
+        }, function () {
+            //$scope.query();
+        })
+    }
     $scope.activityListDetails = function(items) {
         var modalInstance = $uibModal.open({
             templateUrl: 'activityListDetails.html',
@@ -100,7 +119,7 @@ App.controller("seckillActivityController", function ($scope, ngProgressFactory,
 //添加
 App.controller("addActivityController", function($scope, $uibModalInstance, restful,$rootScope, $uibModal, toastr,ngProgressFactory) {
     $scope.progressbar = ngProgressFactory.createInstance();
-  $scope.data = {actType:0};//0-秒杀 1-限时特卖
+    $scope.data = {actType:0};//0-秒杀 1-限时特卖
     //时间转时间戳
     $scope.OnSetTime = function (time) {
         $scope.data[time] = new Date($scope[time]).getTime();
@@ -127,6 +146,40 @@ App.controller("addActivityController", function($scope, $uibModalInstance, rest
   $scope.close = function() {
     $uibModalInstance.dismiss('dismiss');
   };
+});
+App.controller("editActivityController", function($scope, $uibModalInstance, restful,$rootScope, $uibModal, toastr,ngProgressFactory,items) {
+    $scope.progressbar = ngProgressFactory.createInstance();
+    $scope.data = {actType:0,activityId:items.activityId};
+    $scope.item = items;
+
+    //时间转时间戳
+    $scope.OnSetTime = function (time) {
+        $scope.data[time] = new Date($scope.item[time]).getTime();
+        console.log(new Date($scope.item[time]).getTime());
+    }
+    $scope.OnSetTime("startDate")
+    $scope.save = function() {
+        $scope.progressbar.start();
+        console.log("param",$scope.data)
+        restful.fetch($rootScope.api.saveActivity, "POST", $scope.data).then(function(res) {
+            console.log(res)
+            if(!!res.success){
+                $uibModalInstance.close('success');
+            }else {
+                toastr.error(res.message,"服务器提示：");
+            }
+            $scope.progressbar.complete();
+
+        }, function(rej) {
+            console.log(rej);
+            $scope.progressbar.complete();
+            toastr.error(rej.status+"("+rej.statusText+")","请求失败：");
+        })
+    };
+
+    $scope.close = function() {
+        $uibModalInstance.dismiss('dismiss');
+    };
 });
 //举报内容
 App.controller("activityListDetailsController", function ($scope, $uibModalInstance, items) {
