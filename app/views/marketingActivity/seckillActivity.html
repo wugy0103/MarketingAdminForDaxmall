@@ -1,6 +1,6 @@
-<article ng-controller="seckillActivityController" class="orderManage">
+<article ng-controller="seckillActivityController" class="marketingManage">
     <!-- 上部分 -->
-    <form action="{{sce.exportUrl}}" method="POST" ng-enter="search()">
+    <form action="" method="POST" ng-enter="search()">
         <section class="parameter">
             <div class="row">
                 <div class="dropdown form-group col-lg-3">
@@ -55,12 +55,13 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="activityList in activityData.model">
+                <tr ng-repeat="activityList in activityData.model" ng-click="toSeckillProduct(activityList)">
                     <td>{{$index+1}}</td>
                     <td>{{activityList.name}}</td>
                     <td>{{activityList.startDate | date :'yyyy-MM-dd HH:mm'}} 至 {{activityList.endDate | date :'yyyy-MM-dd HH:mm'}}</td>
                     <td>{{activityList.actProdQuantity}}</td>
                     <td>
+
                         <a ng-hide="data.status==2" href="javascript:;" class="text-primary" ng-click="editActivity(activityList)">编辑&nbsp;</a>
                         <a ng-show="data.status==0" href="javascript:;" class="text-primary" ng-click="outline(activityList)">上线&nbsp;</a>
                         <a ng-show="(data.status==1 || data.status==2)" href="javascript:;" class="text-primary" ng-click="outline(activityList)">下线&nbsp;</a>
@@ -68,7 +69,9 @@
                         <a ng-show="data.status==-1" href="javascript:;" class="text-primary" ng-click="outline(activityList)">还原&nbsp;</a>
                         <a ng-show="data.status==0" href="javascript:;" class="text-primary" ng-click="outline(activityList)">回收</a>
                     </td>
-
+                    <td>
+                        <a href="javascript:;" class=" btn btn-raised text-primary" ng-click="toSeckillProduct(activityList)">查看活动商品&nbsp;</a>
+                    </td>
                 </tr>
                 </tbody>
             </table>
@@ -166,176 +169,4 @@
             <button class="btn withripple btn-raised btn-warning" type="button" ng-click="close()">关闭</button>
         </div>
     </form>
-</script>
-<!--查看详情-->
-<script type="text/ng-template" id="activityListDetails.html" class="modal-lg">
-    <div class="panel  tk-box  activityListDetails">
-        <div class="panel-heading">
-            <h4>订单详细</h4></div>
-        <div class="panel-body">
-            <div class="row">
-                <div class=" col-lg-4">
-                    <label class="col-md-4 text-right">地区:</label>
-
-                    <div class="col-md-8">{{item.area}}</div>
-                </div>
-                <div class="col-lg-4">
-                    <label class="col-md-4 text-right">商品属性:</label>
-
-                    <div class="col-md-8">{{item.attribute}}</div>
-                </div>
-                <div class="col-lg-4">
-                    <label class="col-md-4 text-right">数量:</label>
-
-                    <div class="col-md-8">{{item.basketCount}}</div>
-                </div>
-                <div class="col-lg-4">
-                    <label class="col-md-4 text-right">一口价:</label>
-
-                    <div class="col-md-8">{{item.cash}}</div>
-                </div>
-                <div class="col-lg-4">
-                    <label class="col-md-4 text-right">城市:</label>
-
-                    <div class="col-md-8">{{item.city}}</div>
-                </div>
-                <div class="col-lg-4">
-                    <label class="col-md-4 text-right">分销的佣金金额:</label>
-
-                    <div class="col-md-8">{{item.distCommisCash}}</div>
-                </div>
-                <div class="col-lg-4">
-                    <label class="col-md-4 text-right">发货时间:</label>
-
-                    <div class="col-md-8">{{item.dvyDate}}</div>
-                </div>
-                <div class="col-lg-4">
-                    <label class="col-md-4 text-right">确认收货时间:</label>
-
-                    <div class="col-md-8">{{item.finallyDate}}</div>
-                </div>
-                <div class="col-lg-4">
-                    <label class="col-md-4 text-right">身份证姓名:</label>
-
-                    <div class="col-md-8">{{item.idcardName}}</div>
-                </div>
-                <div class="col-lg-4">
-                    <label class="col-md-4 text-right">身份证号码:</label>
-
-                    <div class="col-md-8">{{item.idcardNo}}</div>
-                </div>
-                <div class="col-lg-4">
-                    <label class="col-md-4 text-right">猫豆:</label>
-
-                    <div class="col-md-8">{{item.mallBeanUseAmount}}</div>
-                </div>
-                <div class="col-lg-4">
-                    <label class="col-md-4 text-right">猫号:</label>
-
-                    <div class="col-md-8">{{item.mallId}}</div>
-                </div>
-                <div class="col-lg-4">
-                    <label class="col-md-4 text-right">收货人手机号:</label>
-
-                    <div class="col-md-8">{{item.mobile}}</div>
-                </div>
-                <div class="col-lg-4">
-                    <label class="col-md-4 text-right">类目:</label>
-
-                    <div class="col-md-8">{{item.name}}</div>
-                </div>
-                <div class="col-lg-4">
-                    <label class="col-md-4 text-right">昵称:</label>
-
-                    <div class="col-md-8">{{item.nickName}}</div>
-                </div>
-
-                <div class="col-lg-4">
-                    <label class="col-md-4 text-right">供货商名称:</label>
-
-                    <div class="col-md-8">{{item.supplierName}}</div>
-                </div>
-                <div class="col-lg-4">
-                    <label class="col-md-4 text-right">支付时间:</label>
-
-                    <div class="col-md-8">{{item.payDate}}</div>
-                </div>
-                <div class="col-lg-4">
-                    <label class="col-md-4 text-right">支付宝帐号:</label>
-
-                    <div class="col-md-8">{{item.payUserInfo}}</div>
-                </div>
-                <div class="col-lg-4">
-                    <label class="col-md-4 text-right">商品名称:</label>
-
-                    <div class="col-md-8">{{item.prodName}}</div>
-                </div>
-                <div class="col-lg-4">
-                    <label class="col-md-4 text-right">省份:</label>
-
-                    <div class="col-md-8">{{item.province}}</div>
-                </div>
-                <div class="col-lg-4">
-                    <label class="col-md-4 text-right">返利百分比:</label>
-
-                    <div class="col-md-8">{{item.rebate}}</div>
-                </div>
-                <div class="col-lg-4">
-                    <label class="col-md-4 text-right">返利:</label>
-
-                    <div class="col-md-8">{{item.rebateAmount}}</div>
-                </div>
-                <div class="col-lg-4">
-                    <label class="col-md-4 text-right">收货人姓名:</label>
-
-                    <div class="col-md-8">{{item.receiver}}</div>
-                </div>
-                <div class="col-lg-4">
-                    <label class="col-md-4 text-right">分销的用户名:</label>
-
-                    <div class="col-md-8">{{item.sellId}}</div>
-                </div>
-                <div class="col-lg-4">
-                    <label class="col-md-4 text-right">订单状态:</label>
-
-                    <div class="col-md-8">{{item.status}}</div>
-                </div>
-                <div class="col-lg-4">
-                    <label class="col-md-4 text-right">收货地址:</label>
-
-                    <div class="col-md-8">{{item.subAddrs}}</div>
-                </div>
-                <div class="col-lg-4">
-                    <label class="col-md-4 text-right">下单时间:</label>
-
-                    <div class="col-md-8">{{item.subDate}}</div>
-                </div>
-                <div class="col-lg-4">
-                    <label class="col-md-4 text-right">商品订单号:</label>
-
-                    <div class="col-md-8">{{item.subNumber}}</div>
-                </div>
-                <div class="col-lg-4">
-                    <label class="col-md-4 text-right">邮编:</label>
-
-                    <div class="col-md-8">{{item.subPost}}</div>
-                </div>
-                <div class="col-lg-4">
-                    <label class="col-md-4 text-right">交易支付号:</label>
-
-                    <div class="col-md-8">{{item.subSettlementSn}}</div>
-                </div>
-                <div class="col-lg-4">
-                    <label class="col-md-4 text-right">备注:</label>
-
-                    <div class="col-md-8">{{item.operatorRemark}}</div>
-                </div>
-            </div>
-        </div>
-        <div class="panel-heading" style="overflow:hidden;">
-            <div class="pull-right">
-                <button class="btn withripple btn-raised btn-primary" type="button" ng-click="close()">确认</button>
-            </div>
-        </div>
-    </div>
 </script>

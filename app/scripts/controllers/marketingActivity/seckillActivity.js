@@ -6,7 +6,7 @@
  */
 
 'use strict';
-App.controller("seckillActivityController", function ($scope, ngProgressFactory, restful, $rootScope, $uibModal, toastr) {
+App.controller("seckillActivityController", function ($scope, ngProgressFactory, restful, $rootScope, $uibModal, toastr,$state) {
     $scope.progressbar = ngProgressFactory.createInstance();
     $scope.data = {status:1,actType:0};
     $scope.zhuangtai2 = [{
@@ -103,17 +103,8 @@ App.controller("seckillActivityController", function ($scope, ngProgressFactory,
             //$scope.query();
         })
     }
-    $scope.activityListDetails = function(items) {
-        var modalInstance = $uibModal.open({
-            templateUrl: 'activityListDetails.html',
-            controller: 'activityListDetailsController',
-            size: "lg",
-            resolve: {
-                items: function() {
-                    return items;
-                }
-            },
-        });
+    $scope.toSeckillProduct = function (activityList) {
+        $state.go('dashboard');
     }
 });
 //添加
@@ -150,14 +141,12 @@ App.controller("addActivityController", function($scope, $uibModalInstance, rest
 App.controller("editActivityController", function($scope, $uibModalInstance, restful,$rootScope, $uibModal, toastr,ngProgressFactory,items) {
     $scope.progressbar = ngProgressFactory.createInstance();
     $scope.data = {actType:0,activityId:items.activityId};
-    $scope.item = items;
-
+    $scope.item = angular.copy(items);
     //时间转时间戳
     $scope.OnSetTime = function (time) {
         $scope.data[time] = new Date($scope.item[time]).getTime();
-        console.log(new Date($scope.item[time]).getTime());
     }
-    $scope.OnSetTime("startDate")
+    $scope.OnSetTime("startDate");
     $scope.save = function() {
         $scope.progressbar.start();
         console.log("param",$scope.data)
@@ -179,12 +168,5 @@ App.controller("editActivityController", function($scope, $uibModalInstance, res
 
     $scope.close = function() {
         $uibModalInstance.dismiss('dismiss');
-    };
-});
-//举报内容
-App.controller("activityListDetailsController", function ($scope, $uibModalInstance, items) {
-    $scope.item = items;
-    $scope.close = function () {
-        $uibModalInstance.dismiss('close');
     };
 });

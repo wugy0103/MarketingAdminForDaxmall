@@ -107,16 +107,16 @@ body {
 
 }
 //订单管理
-.orderManage {
+.marketingManage {
+  tbody{
+    tr {
+      cursor: pointer;
+      .btn {
 
-}
-.orderListDetails {
-  label {
-    font-size: 14px;
+      }
+    }
   }
-  div.col-lg-4 {
-    margin: 5px 0;
-  }
+
 }
 body,
 .h1,
@@ -139,9 +139,10 @@ h6 {
 .table>tfoot>tr>th,
 .table>thead>tr>td,
 .table>thead>tr>th {
-  padding:20px;
+  padding:10px 20px;
   word-break: keep-all;
   white-space: nowrap;
+  vertical-align: middle;
 }
 .table-image.table>tbody>tr>td{
   line-height: 40px;
