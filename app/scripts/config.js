@@ -32,10 +32,10 @@ App.run(['$rootScope', 'Session', function ($rootScope) {
         queryActivity: $rootScope.BASEURL + "miaosha/queryActivity",
         //新增、编辑活动
         saveActivity: $rootScope.BASEURL + "miaosha/saveActivity",
-        //查询用户
+        //查询商品
         queryMiaoshaProd: $rootScope.BASEURL + "miaosha/queryMiaoshaProd",
-        //导出用户
-        getLsUserexportExcel: $rootScope.BASEURL + "lsUser/exportExcel",
+        //更新活动状态
+        updateActivity: $rootScope.BASEURL + "miaosha/updateActivity",
         //查询退换货
         getLsProdReturnlist: $rootScope.BASEURL + "lsProdReturn/list",
         //导出退换货

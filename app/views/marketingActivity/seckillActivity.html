@@ -55,7 +55,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="activityList in activityData.model" ng-click="toSeckillProduct(activityList)">
+                <tr ng-repeat="activityList in activityData.model" >
                     <td>{{$index+1}}</td>
                     <td>{{activityList.name}}</td>
                     <td>{{activityList.startDate | date :'yyyy-MM-dd HH:mm'}} 至 {{activityList.endDate | date :'yyyy-MM-dd HH:mm'}}</td>
@@ -63,11 +63,11 @@
                     <td>
 
                         <a ng-hide="data.status==2" href="javascript:;" class="text-primary" ng-click="editActivity(activityList)">编辑&nbsp;</a>
-                        <a ng-show="data.status==0" href="javascript:;" class="text-primary" ng-click="outline(activityList)">上线&nbsp;</a>
-                        <a ng-show="(data.status==1 || data.status==2)" href="javascript:;" class="text-primary" ng-click="outline(activityList)">下线&nbsp;</a>
+                        <a ng-show="data.status==0" href="javascript:;" class="text-primary" ng-click="updateActivity(activityList,'1')">上线&nbsp;</a>
+                        <a ng-show="(data.status==1 || data.status==2)" href="javascript:;" class="text-primary" ng-click="updateActivity(activityList,'0')">下线&nbsp;</a>
                         <a ng-show="(data.status==-1)" href="javascript:;" class="text-primary" ng-click="outline(activityList)">删除&nbsp;</a>
                         <a ng-show="data.status==-1" href="javascript:;" class="text-primary" ng-click="outline(activityList)">还原&nbsp;</a>
-                        <a ng-show="data.status==0" href="javascript:;" class="text-primary" ng-click="outline(activityList)">回收</a>
+                        <a ng-show="data.status==0" href="javascript:;" class="text-primary" ng-click="updateActivity(activityList,'-1')">回收</a>
                     </td>
                     <td>
                         <a href="javascript:;" class=" btn btn-raised text-primary" ng-click="toSeckillProduct(activityList)">查看活动商品&nbsp;</a>

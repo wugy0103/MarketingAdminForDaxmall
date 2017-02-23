@@ -1,4 +1,4 @@
-<article ng-controller="seckillProductController" class="marketingManage">
+<article ng-controller="seckillProductController" class="seckillProductManage">
     <!-- 上部分 -->
     <form action="" method="POST" ng-enter="search()">
         <section class="parameter">
@@ -51,7 +51,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="seckillProductList in seckillProductData.model" ng-click="toSeckillProduct(seckillProductList)">
+                <tr ng-repeat="seckillProductList in seckillProductData.model">
                     <td>
                         <div class="checkbox">
                             <label>
@@ -60,14 +60,14 @@
                         </div>
                     </td>
                     <td>{{$index+1}}</td>
-                    <!--<td><img src="{{seckillProductList.pic}}" alt=""/></td>-->
+                    <td class="imgbox"><img src="{{seckillProductList.pic}}" alt="{{seckillProductList.prodName}}"/></td>
                     <td>{{seckillProductList.prodName}}</td>
                     <td>{{seckillProductList.killPrice}}</td>
                     <td>{{seckillProductList.cash}}</td>
                     <td>
 
-                        <a ng-hide="data.status==2" href="javascript:;" class="text-primary" ng-click="editseckillProduct(seckillProductList)">编辑&nbsp;</a>
-                        <a ng-show="data.status==0" href="javascript:;" class="text-primary" ng-click="outline(seckillProductList)">退出活动&nbsp;</a>
+                        <a href="javascript:;" class="text-primary" ng-click="editseckillProduct(seckillProductList)">编辑&nbsp;</a>
+                        <a href="javascript:;" class="text-primary" ng-click="outline(seckillProductList)">退出活动&nbsp;</a>
 
                     </td>
 
@@ -137,8 +137,8 @@
                     <td>{{seckillProductList.killPrice}}</td>
                     <td>{{seckillProductList.cash}}</td>
                     <td>
-                        <a  href="javascript:;" class="text-primary" ng-click="editseckillProduct(seckillProductList)">编辑&nbsp;</a>
-                        <a  href="javascript:;" class="text-primary" ng-click="outline(seckillProductList)">退出活动&nbsp;</a>
+                        <a href="javascript:;" class="text-primary" ng-click="editseckillProduct(seckillProductList)">编辑&nbsp;</a>
+                        <a href="javascript:;" class="text-primary" ng-click="outline(seckillProductList)">退出活动&nbsp;</a>
 
                     </td>
 
@@ -174,27 +174,56 @@
 <script type="text/ng-template" id="editseckillProduct.html">
     <form name="editseckillProductForm">
         <div class="panel-body">
-            <h4>编辑活动</h4>
+            <h4>编辑商品</h4>
             <div class="row">
-                <div class="dropdown form-group col-lg-6">
-                    <label class="col-md-2 control-label">开始时间</label>
-
-                    <div class="dropdown-toggle col-md-8" id="startDate1" role="button" data-toggle="dropdown">
-                        <div class="input-group date">
-                            <input type="text" class="form-control" disabled ng-model="item.startDate"
-                                   datetime-transform
-                                   format="yyyy-MM-dd HH:mm">
-                            <input type="hidden" name="startDate1" value="{{item.startDate}}"/>
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                        </div>
-                    </div>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="startDate1">
-                        <datetimepicker data-ng-model="item.startDate"
-                                        data-datetimepicker-config="{ dropdownSelector: '#startDate1'}"
-                                        data-on-set-time="OnSetTime('startDate')"></datetimepicker>
-                    </ul>
+                <div class="col-md-3 ">
+                    <img src="{{item.pic}}" alt="{{item.prodName}}"/>
+                </div>
+                <div class="col-md-8 ">
+                    <h5>{{item.prodName}}</h5>
                 </div>
             </div>
+            <div class="row">
+                <div class="form-group col-lg-3">
+                    <label class="col-md-2 control-label">销售价</label>
+
+                    <div class="col-md-8">
+                        {{item.cash}}
+                    </div>
+                </div>
+                <div class="form-group col-lg-3">
+                    <label class="col-md-2 control-label">秒杀价</label>
+
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" ng-model="item.killPrice" >
+                    </div>
+                </div>
+                <div class="form-group col-lg-3">
+                    <label class="col-md-2 control-label">限购数</label>
+
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" ng-model="item.limitAmount">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <table>
+                    <thead >
+                    <tr>
+                        <th>价格</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>111
+                        </td>
+                        <td>{{$index+1}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
         </div>
         <div class="modal-footer">
             <span class="text-danger pull-left" ng-bind="error"></span>

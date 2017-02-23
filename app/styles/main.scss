@@ -106,7 +106,7 @@ body {
   padding: 5px 10px;
 
 }
-//订单管理
+//秒杀管理
 .marketingManage {
   tbody{
     tr {
@@ -116,7 +116,19 @@ body {
       }
     }
   }
-
+}
+.seckillProductManage {
+  tr {
+    .imgbox {
+      padding: 0;
+      img {
+        width: 100px;
+        height: 100px;
+        border: 1px solid #F5F7F6;
+        box-sizing: border-box;
+      }
+    }
+  }
 }
 body,
 .h1,

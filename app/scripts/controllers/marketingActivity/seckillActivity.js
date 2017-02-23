@@ -103,6 +103,27 @@ App.controller("seckillActivityController", function ($scope, ngProgressFactory,
             //$scope.query();
         })
     }
+    //状态更改
+    $scope.updateActivity = function (activityList,flag) {
+        $scope.param = {activityId:activityList.activityId,status:flag};
+            $scope.progressbar.start();
+            console.log("param",$scope.param)
+            restful.fetch($rootScope.api.updateActivity, "POST", $scope.param).then(function(res) {
+                console.log(res)
+                if(!!res.success){
+                    toastr.success(res.message,"更新成功");
+                    $scope.query();
+                }else {
+                    toastr.error(res.message,"服务器提示：");
+                }
+                $scope.progressbar.complete();
+
+            }, function(rej) {
+                console.log(rej);
+                $scope.progressbar.complete();
+                toastr.error(rej.status+"("+rej.statusText+")","请求失败：");
+            })
+    }
     $scope.toSeckillProduct = function (activityList) {
         $state.go('seckillProduct',{activityId:activityList.activityId,status:activityList.status});
     }

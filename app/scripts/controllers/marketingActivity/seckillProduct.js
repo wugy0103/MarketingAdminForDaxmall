@@ -74,10 +74,10 @@ App.controller("seckillProductController", function ($scope, ngProgressFactory, 
     })
   };
     //编辑
-    $scope.editActivity = function (items) {
+    $scope.editseckillProduct = function (items) {
         var modalInstance = $uibModal.open({
-            templateUrl: 'editActivity.html',
-            controller: 'editActivityController',
+            templateUrl: 'editseckillProduct.html',
+            controller: 'editseckillProductController',
             size: 'lg',
             resolve: {
                 items: function () {
@@ -127,15 +127,12 @@ App.controller("addseckillProductController", function($scope, $uibModalInstance
     $uibModalInstance.dismiss('dismiss');
   };
 });
-App.controller("editActivityController", function($scope, $uibModalInstance, restful,$rootScope, $uibModal, toastr,ngProgressFactory,items) {
+App.controller("editseckillProductController", function($scope, $uibModalInstance, restful,$rootScope, $uibModal, toastr,ngProgressFactory,items) {
     $scope.progressbar = ngProgressFactory.createInstance();
     $scope.data = {actType:0,activityId:items.activityId};
     $scope.item = angular.copy(items);
-    //时间转时间戳
-    $scope.OnSetTime = function (time) {
-        $scope.data[time] = new Date($scope.item[time]).getTime();
-    }
-    $scope.OnSetTime("startDate");
+    console.log($scope.item);
+
     $scope.save = function() {
         $scope.progressbar.start();
         console.log("param",$scope.data)
