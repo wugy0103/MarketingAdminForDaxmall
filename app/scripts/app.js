@@ -26,6 +26,10 @@ App.config(function($stateProvider, $urlRouterProvider,$locationProvider,$qProvi
         })
         //营销模块-》秒杀商品
         .state('seckillProduct', {
+            params: {
+              'activityId': null,
+              'status':null
+            },
             url: '/marketingActivity/seckillProduct',
             templateUrl: 'views/marketingActivity/seckillProduct.html'
         })

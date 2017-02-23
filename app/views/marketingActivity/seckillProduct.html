@@ -1,0 +1,207 @@
+<article ng-controller="seckillProductController" class="marketingManage">
+    <!-- 上部分 -->
+    <form action="" method="POST" ng-enter="search()">
+        <section class="parameter">
+            <div class="row">
+                <div class="form-group col-lg-3">
+                    <label class="col-md-2 control-label">商品类目</label>
+
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" ng-model="data.categoryId" name="categoryId">
+                    </div>
+                </div>
+                <div class="form-group col-lg-3">
+                    <label class="col-md-2 control-label">商品Id</label>
+
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" ng-model="data.prodId" name="prodId">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="parameter-btn">
+            <button type="button" class="btn btn-raised btn-primary" ng-click="search()">查询</button>
+            <button type="button" class="btn btn-raised btn-default" ng-click="reset()">重置查询条件</button>
+            <button type="button" class="btn btn-raised btn-primary" ng-click="add()">新增商品</button>
+            <div class="button-first">
+                <button type="button" class="btn btn-raised btn-warning" confirm="确定退出活动吗？" confirm-title="退出活动" confirm-ok="确定" confirm-cancel="取消" ng-click="remove()">退出活动</button>
+            </div>
+        </div>
+    </form>
+    <!-- 下部分 -->
+    <section>
+        <div class="table-responsive">
+            <table class="table table-hover" float-thead="floatTheadOptions">
+                <thead class="table-head">
+                <tr class="active">
+                    <th>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-model="isAllSelected" ng-click="toggleAll()">
+                                <span class="checkbox-material"><span class="check"></span></span>
+                            </label>
+                        </div>
+                    </th>
+                    <th>编号</th>
+                    <th>主图</th>
+                    <th>商品名称</th>
+                    <th>活动特价</th>
+                    <th>价格</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="seckillProductList in seckillProductData.model" ng-click="toSeckillProduct(seckillProductList)">
+                    <td>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" checked="" ng-model="ChoiceQuestion.selected" ng-change="optionToggled()" ><span class="checkbox-material"><span class="check"></span></span>
+                            </label>
+                        </div>
+                    </td>
+                    <td>{{$index+1}}</td>
+                    <!--<td><img src="{{seckillProductList.pic}}" alt=""/></td>-->
+                    <td>{{seckillProductList.prodName}}</td>
+                    <td>{{seckillProductList.killPrice}}</td>
+                    <td>{{seckillProductList.cash}}</td>
+                    <td>
+
+                        <a ng-hide="data.status==2" href="javascript:;" class="text-primary" ng-click="editseckillProduct(seckillProductList)">编辑&nbsp;</a>
+                        <a ng-show="data.status==0" href="javascript:;" class="text-primary" ng-click="outline(seckillProductList)">退出活动&nbsp;</a>
+
+                    </td>
+
+                </tr>
+                </tbody>
+            </table>
+            <div ng-if="!seckillProductData.model.length" class="noData text-center">暂无数据</div>
+        </div>
+        <section style="margin:0 0 10px 5px;">本次查询共 <strong>{{seckillProductData.query.total || 0}}</strong>个结果</section>
+        <div class="row">
+            <div class="col-md-9">
+                <select class="page-size" ng-model="data.pageSize" ng-change="pageChanged()">
+                    <option value="20" ng-selected="true">每页显示20条</option>
+                    <option value="40">每页显示40条</option>
+                    <option value="60">每页显示60条</option>
+                    <option value="80">每页显示80条</option>
+                    <option value="100">每页显示100条</option>
+                </select>
+                <uib-pagination ng-change="pageChanged()" ng-model="data.pageNum" total-items="seckillProductData.query.total"
+                                max-size="maxSize" items-per-page="data.pageSize" class="pagination-sm"
+                                boundary-link-numbers="true"
+                                rotate="false" previous-text="上一页" next-text="下一页"></uib-pagination>
+            </div>
+            <div class="col-md-3 text-right">
+                <span>跳转到</span>
+                <input type="text" ng-model="toPageNum" class="variant-form-control">
+                <button ng-click="setPage()" class="to-page-num">确定</button>
+            </div>
+        </div>
+    </section>
+</article>
+<!--添加弹框-->
+<script type="text/ng-template" id="addseckillProduct.html">
+    <section>
+        <div class="table-responsive">
+            <table class="table table-hover" float-thead="floatTheadOptions">
+                <thead class="table-head">
+                <tr class="active">
+                    <th>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-model="isAllSelected" ng-click="toggleAll()">
+                                <span class="checkbox-material"><span class="check"></span></span>
+                            </label>
+                        </div>
+                    </th>
+                    <th>编号</th>
+                    <th>主图</th>
+                    <th>商品名称</th>
+                    <th>活动特价</th>
+                    <th>价格</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="seckillProductList in seckillProductData.model" ng-click="toSeckillProduct(seckillProductList)">
+                    <td>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" checked="" ng-model="ChoiceQuestion.selected" ng-change="optionToggled()" ><span class="checkbox-material"><span class="check"></span></span>
+                            </label>
+                        </div>
+                    </td>
+                    <td>{{$index+1}}</td>
+                    <td><img src="{{seckillProductList.pic}}" alt=""/></td>
+                    <td>{{seckillProductList.prodName}}</td>
+                    <td>{{seckillProductList.killPrice}}</td>
+                    <td>{{seckillProductList.cash}}</td>
+                    <td>
+                        <a  href="javascript:;" class="text-primary" ng-click="editseckillProduct(seckillProductList)">编辑&nbsp;</a>
+                        <a  href="javascript:;" class="text-primary" ng-click="outline(seckillProductList)">退出活动&nbsp;</a>
+
+                    </td>
+
+                </tr>
+                </tbody>
+            </table>
+            <div ng-if="!seckillProductData.model.length" class="noData text-center">暂无数据</div>
+        </div>
+        <section style="margin:0 0 10px 5px;">本次查询共 <strong>{{seckillProductData.query.total || 0}}</strong>个结果</section>
+        <div class="row">
+            <div class="col-md-9">
+                <select class="page-size" ng-model="data.pageSize" ng-change="pageChanged()">
+                    <option value="20" ng-selected="true">每页显示20条</option>
+                    <option value="40">每页显示40条</option>
+                    <option value="60">每页显示60条</option>
+                    <option value="80">每页显示80条</option>
+                    <option value="100">每页显示100条</option>
+                </select>
+                <uib-pagination ng-change="pageChanged()" ng-model="data.pageNum" total-items="seckillProductData.query.total"
+                                max-size="maxSize" items-per-page="data.pageSize" class="pagination-sm"
+                                boundary-link-numbers="true"
+                                rotate="false" previous-text="上一页" next-text="下一页"></uib-pagination>
+            </div>
+            <div class="col-md-3 text-right">
+                <span>跳转到</span>
+                <input type="text" ng-model="toPageNum" class="variant-form-control">
+                <button ng-click="setPage()" class="to-page-num">确定</button>
+            </div>
+        </div>
+    </section>
+</script>
+<!--编辑弹框-->
+<script type="text/ng-template" id="editseckillProduct.html">
+    <form name="editseckillProductForm">
+        <div class="panel-body">
+            <h4>编辑活动</h4>
+            <div class="row">
+                <div class="dropdown form-group col-lg-6">
+                    <label class="col-md-2 control-label">开始时间</label>
+
+                    <div class="dropdown-toggle col-md-8" id="startDate1" role="button" data-toggle="dropdown">
+                        <div class="input-group date">
+                            <input type="text" class="form-control" disabled ng-model="item.startDate"
+                                   datetime-transform
+                                   format="yyyy-MM-dd HH:mm">
+                            <input type="hidden" name="startDate1" value="{{item.startDate}}"/>
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                        </div>
+                    </div>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="startDate1">
+                        <datetimepicker data-ng-model="item.startDate"
+                                        data-datetimepicker-config="{ dropdownSelector: '#startDate1'}"
+                                        data-on-set-time="OnSetTime('startDate')"></datetimepicker>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <span class="text-danger pull-left" ng-bind="error"></span>
+            <button class="btn withripple btn-raised btn-primary" type="button" ng-click="save()"
+                    ng-disabled="!editseckillProductForm.$valid">保存
+            </button>
+            <button class="btn withripple btn-raised btn-warning" type="button" ng-click="close()">关闭</button>
+        </div>
+    </form>
+</script>

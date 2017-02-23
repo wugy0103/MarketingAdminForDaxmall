@@ -6,38 +6,28 @@
  */
 
 'use strict';
-App.controller("seckillActivityController", function ($scope, ngProgressFactory, restful, $rootScope, $uibModal, toastr,$state) {
+App.controller("seckillProductController", function ($scope, ngProgressFactory, restful, $rootScope, $uibModal, toastr,$stateParams) {
     $scope.progressbar = ngProgressFactory.createInstance();
-    $scope.data = {status:1,actType:0};
-    $scope.zhuangtai2 = [{
-        stauts: "已过期",
-        status_id: "2"
-    },{
-        stauts: "已上线",
-        status_id: "1"
-    },  {
-        stauts: "待编辑",
-        status_id: "0"
-    }, {
-        stauts: "已删除",
-        status_id: "-1"
-    }];
+    $scope.data = {activityId:$stateParams.activityId,status:$stateParams.status};
     //分页
     $scope.data.pageNum = $rootScope.PAGINATION_CONFIG.PAGEINDEX;
     $scope.data.pageSize = $rootScope.PAGINATION_CONFIG.PAGESIZE;
     $scope.maxSize= $rootScope.PAGINATION_CONFIG.MAXSIZE;
-    //时间转时间戳
-    $scope.OnSetTime = function (time) {
-        $scope.data[time] = new Date($scope[time]).getTime();
-    }
+    //全选
+    $scope.toggleAll = function() {
+        var toggleStatus = $scope.isAllSelected;
+        angular.forEach($scope.ChoiceQuestions, function(item) {
+            item.selected = toggleStatus;
+        });
+    };
     //加载
     $scope.query = function () {
         $scope.progressbar.start();
         console.log("param",$scope.data)
-        $scope.activityPromise = restful.fetch($rootScope.api.queryActivity, "POST", $scope.data).then(function(res) {
+        $scope.activityPromise = restful.fetch($rootScope.api.queryMiaoshaProd, "POST", $scope.data).then(function(res) {
             console.log(res)
             if(!!res.success){
-                $scope.activityData = res;
+                $scope.seckillProductData = res;
             }else {
                 toastr.error(res.message,"服务器错误：");
             }
@@ -53,7 +43,6 @@ App.controller("seckillActivityController", function ($scope, ngProgressFactory,
     //重置
     $scope.reset = function () {
         $scope.data = {status:1,actType:0};
-        $scope.activityStartDate=$scope.data.activityStartDate;
         $scope.toPageNum = 1;
         $scope.data.pageNum = $rootScope.PAGINATION_CONFIG.PAGEINDEX;
         $scope.data.pageSize = $rootScope.PAGINATION_CONFIG.PAGESIZE;
@@ -72,8 +61,8 @@ App.controller("seckillActivityController", function ($scope, ngProgressFactory,
   //添加
   $scope.add = function() {
     var modalInstance = $uibModal.open({
-      templateUrl: 'addActivity.html',
-      controller: 'addActivityController',
+      templateUrl: 'addseckillProduct.html',
+      controller: 'addseckillProductController',
       size: 'lg'
     });
     modalInstance.result.then(function() {
@@ -104,11 +93,11 @@ App.controller("seckillActivityController", function ($scope, ngProgressFactory,
         })
     }
     $scope.toSeckillProduct = function (activityList) {
-        $state.go('seckillProduct',{activityId:activityList.activityId,status:activityList.status});
+        $state.go('dashboard');
     }
 });
 //添加
-App.controller("addActivityController", function($scope, $uibModalInstance, restful,$rootScope, $uibModal, toastr,ngProgressFactory) {
+App.controller("addseckillProductController", function($scope, $uibModalInstance, restful,$rootScope, $uibModal, toastr,ngProgressFactory) {
     $scope.progressbar = ngProgressFactory.createInstance();
     $scope.data = {actType:0};//0-秒杀 1-限时特卖
     //时间转时间戳
