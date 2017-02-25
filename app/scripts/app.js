@@ -33,6 +33,11 @@ App.config(function($stateProvider, $urlRouterProvider,$locationProvider,$qProvi
             url: '/marketingActivity/seckillProduct',
             templateUrl: 'views/marketingActivity/seckillProduct.html'
         })
+        //营销模块-》新增秒杀商品
+        .state('addSeckillActivity', {
+            url: '/marketingActivity/addSeckillActivity',
+            templateUrl: 'views/marketingActivity/addSeckillActivity.html'
+        })
         //营销模块-》限时特价
         .state('timeLimitSale', {
             url: '/marketingActivity/timeLimitSale',

@@ -6,9 +6,9 @@
  */
 
 'use strict';
-App.controller("seckillProductController", function ($scope, ngProgressFactory, restful, $rootScope, $uibModal, toastr,$stateParams,$state) {
+App.controller("seckillProductController", function ($scope, ngProgressFactory, restful, $rootScope, $uibModal, toastr,$stateParams) {
     $scope.progressbar = ngProgressFactory.createInstance();
-    $scope.data = {activityId:$stateParams.activityId,status:$stateParams.status};
+    $scope.data = {};
     //分页
     $scope.data.pageNum = $rootScope.PAGINATION_CONFIG.PAGEINDEX;
     $scope.data.pageSize = $rootScope.PAGINATION_CONFIG.PAGESIZE;
@@ -16,13 +16,13 @@ App.controller("seckillProductController", function ($scope, ngProgressFactory, 
     //全选
     $scope.toggleAll = function() {
         var toggleStatus = $scope.isAllSelected;
-        angular.forEach($scope.seckillProductData, function(item) {
+        angular.forEach($scope.noSeckillProductData, function(item) {
             item.selected = toggleStatus;
         });
     };
     //单选
     $scope.optionToggled = function () {
-      $scope.isAllSelected = $scope.seckillProductData.every(function (item) {
+      $scope.isAllSelected = $scope.noSeckillProductData.every(function (item) {
         return item.selected;
       })
     };
@@ -30,10 +30,10 @@ App.controller("seckillProductController", function ($scope, ngProgressFactory, 
     $scope.query = function () {
         $scope.progressbar.start();
         console.log("param",$scope.data)
-        $scope.activityPromise = restful.fetch($rootScope.api.queryMiaoshaProd, "POST", $scope.data).then(function(res) {
+        $scope.activityPromise = restful.fetch($rootScope.api.queryProd, "POST", $scope.data).then(function(res) {
             console.log(res)
             if(!!res.success){
-                $scope.seckillProductData = res.model;
+                $scope.noSeckillProductData = res.model;
             }else {
                 toastr.error(res.message,"服务器错误：");
             }
@@ -48,7 +48,7 @@ App.controller("seckillProductController", function ($scope, ngProgressFactory, 
     $scope.query();
     //重置
     $scope.reset = function () {
-        $scope.data = {status:1,actType:0};
+        $scope.data = {};
         $scope.toPageNum = 1;
         $scope.data.pageNum = $rootScope.PAGINATION_CONFIG.PAGEINDEX;
         $scope.data.pageSize = $rootScope.PAGINATION_CONFIG.PAGESIZE;
@@ -64,10 +64,6 @@ App.controller("seckillProductController", function ($scope, ngProgressFactory, 
         $scope.data.pageNum = $scope.toPageNum;
         $scope.query();
     };
-  //添加
-  $scope.add = function() {
-      $state.go('addSeckillProduct');
-  };
     //编辑
     $scope.editseckillProduct = function (items) {
         var modalInstance = $uibModal.open({
@@ -111,7 +107,7 @@ App.controller("seckillProductController", function ($scope, ngProgressFactory, 
   }
   $scope.delAll = function () {
     var miaoshaProdIdArr=[];
-    angular.forEach($scope.seckillProductData, function(item,i) {
+    angular.forEach($scope.noSeckillProductData, function(item,i) {
       if (item.selected) {
         miaoshaProdIdArr.push(item.miaoshaProdId);
       }
@@ -122,7 +118,6 @@ App.controller("seckillProductController", function ($scope, ngProgressFactory, 
     };
   }
 });
-//编辑
 App.controller("editseckillProductController", function($scope, $uibModalInstance, restful,$rootScope, $uibModal, toastr,ngProgressFactory,items) {
     $scope.progressbar = ngProgressFactory.createInstance();
     $scope.item = angular.copy(items);
@@ -147,34 +142,3 @@ App.controller("editseckillProductController", function($scope, $uibModalInstanc
         $uibModalInstance.dismiss('dismiss');
     };
 });
-//添加
-//App.controller("addseckillProductController", function($scope, $uibModalInstance, restful,$rootScope, $uibModal, toastr,ngProgressFactory) {
-//  $scope.progressbar = ngProgressFactory.createInstance();
-//  $scope.data = {actType:0};//0-秒杀 1-限时特卖
-//  //时间转时间戳
-//  $scope.OnSetTime = function (time) {
-//    $scope.data[time] = new Date($scope[time]).getTime();
-//  }
-//  $scope.save = function() {
-//    $scope.progressbar.start();
-//    console.log("param",$scope.data)
-//    restful.fetch($rootScope.api.saveActivity, "POST", $scope.data).then(function(res) {
-//      console.log(res)
-//      if(!!res.success){
-//        $uibModalInstance.close('success');
-//      }else {
-//        toastr.error(res.message,"服务器提示：");
-//      }
-//      $scope.progressbar.complete();
-//
-//    }, function(rej) {
-//      console.log(rej);
-//      $scope.progressbar.complete();
-//      toastr.error(rej.status+"("+rej.statusText+")","请求失败：");
-//    })
-//  };
-//
-//  $scope.close = function() {
-//    $uibModalInstance.dismiss('dismiss');
-//  };
-//});

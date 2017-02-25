@@ -17,7 +17,7 @@ App.run(['$rootScope', 'Session', function ($rootScope) {
         IDCARD: /^\d{6}(18|19|20)?\d{2}(0[1-9]|1[12])(0[1-9]|[12]\d|3[01])\d{3}(\d|X)$/i
     };
     //开发地址
-    $rootScope.BASEURL = "http://192.168.2.194:8083/";
+    $rootScope.BASEURL = "http://192.168.2.234:8083/";
     //$rootScope.BASEURL = "http://192.168.2.194:8082/";
     $rootScope.LoaclBASEURL = "http://localhost:3002/api/";
     //服务器地址
@@ -36,10 +36,10 @@ App.run(['$rootScope', 'Session', function ($rootScope) {
         queryMiaoshaProd: $rootScope.BASEURL + "miaosha/queryMiaoshaProd",
         //更新活动状态
         updateActivity: $rootScope.BASEURL + "miaosha/updateActivity",
-        //查询退换货
-        getLsProdReturnlist: $rootScope.BASEURL + "lsProdReturn/list",
-        //导出退换货
-        getLsProdReturnexp: $rootScope.BASEURL + "lsProdReturn/exp",
+        //编辑活动商品or删除活动商品
+        updateMiaoshaProd: $rootScope.BASEURL + "miaosha/updateMiaoshaProd",
+        //查询未加入活动的商品
+        queryProd: $rootScope.BASEURL + "miaosha/queryProd",
         //销售统计
         getLsSubCountlist: $rootScope.BASEURL + "lsSubCount/list",
         //导出销售统计
