@@ -6,7 +6,7 @@
  */
 
 'use strict';
-App.controller("seckillProductController", function ($scope, ngProgressFactory, restful, $rootScope, $uibModal, toastr,$stateParams) {
+App.controller("addSeckillProductController", function ($scope, ngProgressFactory, restful, $rootScope, $uibModal, toastr) {
     $scope.progressbar = ngProgressFactory.createInstance();
     $scope.data = {};
     //分页
@@ -64,11 +64,11 @@ App.controller("seckillProductController", function ($scope, ngProgressFactory, 
         $scope.data.pageNum = $scope.toPageNum;
         $scope.query();
     };
-    //编辑
-    $scope.editseckillProduct = function (items) {
+    //加入活动
+    $scope.addProduct = function (items) {
         var modalInstance = $uibModal.open({
-            templateUrl: 'editseckillProduct.html',
-            controller: 'editseckillProductController',
+            templateUrl: 'addProduct.html',
+            controller: 'addProductController',
             size: 'lg',
             resolve: {
                 items: function () {
@@ -94,6 +94,7 @@ App.controller("seckillProductController", function ($scope, ngProgressFactory, 
     restful.fetch($rootScope.api.updateMiaoshaProd, "POST", $scope.data).then(function (res) {
       console.log(res)
       if (!!res.success) {
+          toastr.success(res.message,"更新成功");
         $uibModalInstance.close('success');
       } else {
         toastr.error(res.message, "服务器提示：");
@@ -118,15 +119,22 @@ App.controller("seckillProductController", function ($scope, ngProgressFactory, 
     };
   }
 });
-App.controller("editseckillProductController", function($scope, $uibModalInstance, restful,$rootScope, $uibModal, toastr,ngProgressFactory,items) {
+App.controller("addProductController", function($scope, $uibModalInstance, restful,$rootScope, $uibModal, toastr,ngProgressFactory,items,$stateParams) {
     $scope.progressbar = ngProgressFactory.createInstance();
     $scope.item = angular.copy(items);
+    $scope.data = {
+        activityId:$stateParams.activityId,
+        prodIds:[JSON.stringify($scope.item.prodId)],
+        skuList:[]
+    }
+    $scope.data.skuList = $scope.item.skuList;
     $scope.save = function() {
         $scope.progressbar.start();
         console.log("param",$scope.data)
-        restful.fetch($rootScope.api.updateMiaoshaProd, "POST", $scope.item).then(function(res) {
+        restful.fetch($rootScope.api.addProduct, "POST", $scope.data).then(function(res) {
             console.log(res)
             if(!!res.success){
+                toastr.success(res.message,"更新成功");
                 $uibModalInstance.close('success');
             }else {
                 toastr.error(res.message,"服务器提示：");

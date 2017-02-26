@@ -40,8 +40,8 @@ App.run(['$rootScope', 'Session', function ($rootScope) {
         updateMiaoshaProd: $rootScope.BASEURL + "miaosha/updateMiaoshaProd",
         //查询未加入活动的商品
         queryProd: $rootScope.BASEURL + "miaosha/queryProd",
-        //销售统计
-        getLsSubCountlist: $rootScope.BASEURL + "lsSubCount/list",
+        //加入活动
+        addProduct: $rootScope.BASEURL + "miaosha/save",
         //导出销售统计
         getLsSubCountexp: $rootScope.BASEURL + "lsSubCount/exp"
     };

@@ -1,4 +1,4 @@
-<article ng-controller="seckillProductController" class="seckillProductManage">
+<article ng-controller="addSeckillProductController" class="seckillProductManage">
     <!-- 上部分 -->
     <form action="" method="POST" ng-enter="search()">
         <section class="parameter">
@@ -23,7 +23,7 @@
             <button type="button" class="btn btn-raised btn-primary" ng-click="search()">查询</button>
             <button type="button" class="btn btn-raised btn-default" ng-click="reset()">重置查询条件</button>
             <div class="button-first">
-                <button type="button" class="btn btn-raised btn-warning" confirm="确定退出活动吗？" confirm-title="退出活动" confirm-ok="确定" confirm-cancel="取消" ng-click="delAll()">加入活动（设比率）</button>
+                <button type="button" class="btn btn-raised btn-warning" ng-disabled="isSelected" ng-click="delAll()">加入活动（设比率）</button>
             </div>
         </div>
     </form>
@@ -58,12 +58,12 @@
                         </div>
                     </td>
                     <td>{{$index+1}}</td>
-                    <td class="imgbox"><img src="{{seckillProductList.pic}}" alt="{{seckillProductList.prodName}}"/></td>
-                    <td>{{seckillProductList.prodName}}</td>
+                    <td class="imgbox"><img src="{{seckillProductList.pic}}" alt="{{seckillProductList.name}}"/></td>
+                    <td>{{seckillProductList.name}}</td>
                     <td>{{seckillProductList.cash}}</td>
                     <td>
 
-                        <a href="javascript:;" class="text-primary" ng-click="del(seckillProductList)">加入活动&nbsp;</a>
+                        <a href="javascript:;" class="text-primary" ng-click="addProduct(seckillProductList)">加入活动&nbsp;</a>
 
                     </td>
 
@@ -95,54 +95,71 @@
         </div>
     </section>
 </article>
-<!--编辑弹框-->
-<script type="text/ng-template" id="editseckillProduct.html">
-    <form name="editseckillProductForm">
+<!--加入弹框-->
+<script type="text/ng-template" id="addProduct.html">
+    <form name="addProduct">
         <div class="panel-body">
-            <h4>编辑商品</h4>
+            <h4>加入活动</h4>
             <div class="row">
                 <div class="col-md-3 ">
-                    <img src="{{item.pic}}" alt="{{item.prodName}}"/>
+                    <img src="{{item.pic}}" alt="{{item.name}}"/>
                 </div>
                 <div class="col-md-8 ">
-                    <h5>{{item.prodName}}</h5>
+                    <h5>{{item.name}}</h5>
                 </div>
             </div>
             <div class="row">
                 <div class="form-group col-lg-3">
                     <label class="col-md-2 control-label">销售价</label>
-
                     <div class="col-md-8">
-                        {{item.cash}}
-                    </div>
-                </div>
-                <div class="form-group col-lg-3">
-                    <label class="col-md-2 control-label">秒杀价</label>
-
-                    <div class="col-md-8">
-                        <input type="text" class="form-control" ng-model="item.killPrice" >
-                    </div>
-                </div>
-                <div class="form-group col-lg-3">
-                    <label class="col-md-2 control-label">限购数</label>
-
-                    <div class="col-md-8">
-                        <input type="text" class="form-control" ng-model="item.limitAmount">
+                        <input type="text" class="form-control" value="{{item.cash}}" disabled >
                     </div>
                 </div>
             </div>
             <div class="row">
+                <div class="form-group col-lg-3">
+                    <label class="col-md-2 control-label">秒杀价</label>
+
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" ng-model="data.killPrice" >
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-lg-3">
+                    <label class="col-md-2 control-label">限购数</label>
+
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" ng-model="data.limitAmount">
+                    </div>
+                </div>
+            </div>
+            <div class="row" ng-show = "!item.skuList[0]">
+                <div class="form-group col-lg-3">
+                    <label class="col-md-2 control-label">秒杀库存</label>
+
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" ng-model="data.killStock">
+                    </div>
+                </div>
+            </div>
+            <div class="row" ng-show = "item.skuList[0]">
                 <table>
                     <thead >
                     <tr>
+                        <th></th>
                         <th>选择型号</th>
                         <th>数量</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr ng-repeat="skuList in item.skuList">
-                        <td>{{skuList.name}}</td>
-                        <td>{{skuList.actualStock}}<input type="text" class="form-control" ng-model="item.skuList.actualStock"></td>
+                        <td class="col-md-1">{{$index+1}}</td>
+                        <td class="col-md-7"><label>{{skuList.skuName}}</label></td>
+                        <td class="col-md-4">
+                            <input type="text" class="form-control" ng-model="data.skuList[$index].killStock">
+                        </td>
+
 
                     </tr>
                     </tbody>
@@ -153,7 +170,7 @@
         <div class="modal-footer">
             <span class="text-danger pull-left" ng-bind="error"></span>
             <button class="btn withripple btn-raised btn-primary" type="button" ng-click="save()"
-                    ng-disabled="!editseckillProductForm.$valid">保存
+                    ng-disabled="!addProduct.$valid">保存
             </button>
             <button class="btn withripple btn-raised btn-warning" type="button" ng-click="close()">关闭</button>
         </div>

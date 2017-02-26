@@ -66,7 +66,7 @@ App.controller("seckillProductController", function ($scope, ngProgressFactory, 
     };
   //添加
   $scope.add = function() {
-      $state.go('addSeckillProduct');
+      $state.go('addSeckillProduct',{activityId:$stateParams.activityId});
   };
     //编辑
     $scope.editseckillProduct = function (items) {
