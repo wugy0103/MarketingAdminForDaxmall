@@ -23,7 +23,7 @@
             <button type="button" class="btn btn-raised btn-primary" ng-click="search()">查询</button>
             <button type="button" class="btn btn-raised btn-default" ng-click="reset()">重置查询条件</button>
             <div class="button-first">
-                <button type="button" class="btn btn-raised btn-warning" ng-disabled="isSelected" ng-click="delAll()">加入活动（设比率）</button>
+                <button type="button" class="btn btn-raised btn-warning" ng-disabled="isSelected" ng-click="addAll(noSeckillProductData)">加入活动（设比率）</button>
             </div>
         </div>
     </form>
@@ -53,7 +53,7 @@
                     <td>
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" checked="" ng-model="ChoiceQuestion.selected" ng-change="optionToggled()" ><span class="checkbox-material"><span class="check"></span></span>
+                                <input type="checkbox" checked="" ng-model="seckillProductList.selected" ng-change="optionToggled()" ><span class="checkbox-material"><span class="check"></span></span>
                             </label>
                         </div>
                     </td>
@@ -171,6 +171,59 @@
             <span class="text-danger pull-left" ng-bind="error"></span>
             <button class="btn withripple btn-raised btn-primary" type="button" ng-click="save()"
                     ng-disabled="!addProduct.$valid">保存
+            </button>
+            <button class="btn withripple btn-raised btn-warning" type="button" ng-click="close()">关闭</button>
+        </div>
+    </form>
+</script>
+
+<!--批量加入弹框-->
+<script type="text/ng-template" id="addAll.html">
+    <form name="addAll">
+        <div class="panel-body">
+            <h4>批量加入活动</h4>
+
+            <div class="row">
+                <div class="form-group col-lg-6">
+                    <label class="col-md-4 control-label">选定商品数量</label>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" value="{{item.cash}}" disabled ><span style="position: absolute;top: 10px;right: 0;">件</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-lg-6">
+                    <label class="col-md-4 control-label">选定商品价格下调比例</label>
+
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" ng-model="data.priceRate" ><span style="position: absolute;top: 10px;right: 0;">%</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-lg-6">
+                    <label class="col-md-4 control-label">商品SKU数量</label>
+
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" ng-model="data.killStock">
+                    </div>
+                </div>
+            </div>
+            <div class="row" >
+                <div class="form-group col-lg-6">
+                    <label class="col-md-4 control-label">限购数</label>
+
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" ng-model="data.limitAmount">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <span class="text-danger pull-left" ng-bind="error"></span>
+            <button class="btn withripple btn-raised btn-primary" type="button" ng-click="save()"
+                    ng-disabled="!addAll.$valid">加入活动
             </button>
             <button class="btn withripple btn-raised btn-warning" type="button" ng-click="close()">关闭</button>
         </div>

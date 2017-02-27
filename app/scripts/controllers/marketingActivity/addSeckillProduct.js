@@ -83,41 +83,26 @@ App.controller("addSeckillProductController", function ($scope, ngProgressFactor
             //$scope.query();
         })
     }
-  //退出活动
-  $scope.del = function (items) {
-    $scope.data = {
-      miaoshaProdId: items.miaoshaProdId,
-      status: -1
-    };
-    $scope.progressbar.start();
-    console.log("param", $scope.data)
-    restful.fetch($rootScope.api.updateMiaoshaProd, "POST", $scope.data).then(function (res) {
-      console.log(res)
-      if (!!res.success) {
-          toastr.success(res.message,"更新成功");
-        $uibModalInstance.close('success');
-      } else {
-        toastr.error(res.message, "服务器提示：");
-      }
-      $scope.progressbar.complete();
-    }, function (rej) {
-      console.log(rej);
-      $scope.progressbar.complete();
-      toastr.error(rej.status + "(" + rej.statusText + ")", "请求失败：");
-    })
-  }
-  $scope.delAll = function () {
-    var miaoshaProdIdArr=[];
-    angular.forEach($scope.noSeckillProductData, function(item,i) {
-      if (item.selected) {
-        miaoshaProdIdArr.push(item.miaoshaProdId);
-      }
-    });
-    $scope.data = {
-      miaoshaProdId: miaoshaProdIdArr,
-      status: -1
-    };
-  }
+    //批量加入活动
+    $scope.addAll = function (items) {
+        var modalInstance = $uibModal.open({
+            templateUrl: 'addAll.html',
+            controller: 'addAllController',
+            size: 'lg',
+            resolve: {
+                items: function () {
+                    return items;
+                }
+            }
+
+        });
+        modalInstance.result.then(function () {
+            //close
+            $scope.query();
+        }, function () {
+            //$scope.query();
+        })
+    }
 });
 App.controller("addProductController", function($scope, $uibModalInstance, restful,$rootScope, $uibModal, toastr,ngProgressFactory,items,$stateParams) {
     $scope.progressbar = ngProgressFactory.createInstance();
@@ -128,6 +113,47 @@ App.controller("addProductController", function($scope, $uibModalInstance, restf
         skuList:[]
     }
     $scope.data.skuList = $scope.item.skuList;
+    $scope.save = function() {
+        $scope.progressbar.start();
+        console.log("param",$scope.data)
+        restful.fetch($rootScope.api.addProduct, "POST", $scope.data).then(function(res) {
+            console.log(res)
+            if(!!res.success){
+                toastr.success(res.message,"更新成功");
+                $uibModalInstance.close('success');
+            }else {
+                toastr.error(res.message,"服务器提示：");
+            }
+            $scope.progressbar.complete();
+        }, function(rej) {
+            console.log(rej);
+            $scope.progressbar.complete();
+            toastr.error(rej.status+"("+rej.statusText+")","请求失败：");
+        })
+    };
+    $scope.close = function() {
+        $uibModalInstance.dismiss('dismiss');
+    };
+});
+App.controller("addAllController", function($scope, $uibModalInstance, restful,$rootScope, $uibModal, toastr,ngProgressFactory,items,$stateParams) {
+    //debugger
+    $scope.progressbar = ngProgressFactory.createInstance();
+    $scope.data = {
+        activityId:$stateParams.activityId,
+        prodIds:[],
+        priceRate:"",
+        killStock:"",
+        limitAmount:""
+    }
+    $scope.item = angular.copy(items);
+
+      angular.forEach($scope.item, function(item,i) {
+          if (item.selected) {
+              $scope.data.prodIds.push(item.prodId);
+          }
+          })
+
+    console.log($scope.item);
     $scope.save = function() {
         $scope.progressbar.start();
         console.log("param",$scope.data)

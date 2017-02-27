@@ -90,7 +90,7 @@ App.controller("seckillProductController", function ($scope, ngProgressFactory, 
   //退出活动
   $scope.del = function (items) {
     $scope.data = {
-      miaoshaProdId: items.miaoshaProdId,
+      miaoshaProdIds:[JSON.stringify(items.miaoshaProdId)],
       status: -1
     };
     $scope.progressbar.start();
@@ -98,9 +98,10 @@ App.controller("seckillProductController", function ($scope, ngProgressFactory, 
     restful.fetch($rootScope.api.updateMiaoshaProd, "POST", $scope.data).then(function (res) {
       console.log(res)
       if (!!res.success) {
-        $uibModalInstance.close('success');
+          toastr.success(res.message, "success");
+          $state.go("seckillActivity");
       } else {
-        toastr.error(res.message, "服务器提示：");
+          toastr.error(res.message, "服务器提示：");
       }
       $scope.progressbar.complete();
     }, function (rej) {
@@ -110,16 +111,31 @@ App.controller("seckillProductController", function ($scope, ngProgressFactory, 
     })
   }
   $scope.delAll = function () {
-    var miaoshaProdIdArr=[];
+      $scope.data = {
+          miaoshaProdIds:[],
+          status: -1
+      };
     angular.forEach($scope.seckillProductData, function(item,i) {
       if (item.selected) {
-        miaoshaProdIdArr.push(item.miaoshaProdId);
+          $scope.data.miaoshaProdIds.push(item.miaoshaProdId);
       }
     });
-    $scope.data = {
-      miaoshaProdId: miaoshaProdIdArr,
-      status: -1
-    };
+      $scope.progressbar.start();
+      console.log("param", $scope.data)
+      restful.fetch($rootScope.api.updateMiaoshaProd, "POST", $scope.data).then(function (res) {
+          console.log(res)
+          if (!!res.success) {
+              toastr.success(res.message, "success");
+              $state.go("seckillActivity");
+          } else {
+              toastr.error(res.message, "服务器提示：");
+          }
+          $scope.progressbar.complete();
+      }, function (rej) {
+          console.log(rej);
+          $scope.progressbar.complete();
+          toastr.error(rej.status + "(" + rej.statusText + ")", "请求失败：");
+      })
   }
 });
 //编辑
@@ -127,12 +143,19 @@ App.controller("editseckillProductController", function($scope, $uibModalInstanc
     $scope.progressbar = ngProgressFactory.createInstance();
     $scope.item = angular.copy(items);
     $scope.save = function() {
+        $scope.data= {
+            killPrice:$scope.item.killPrice,
+            limitAmount:$scope.item.limitAmount,
+            miaoshaProdIds:[JSON.stringify($scope.item.miaoshaProdId)],
+            skuList:$scope.item.skuList
+        };
         $scope.progressbar.start();
         console.log("param",$scope.data)
-        restful.fetch($rootScope.api.updateMiaoshaProd, "POST", $scope.item).then(function(res) {
+        restful.fetch($rootScope.api.updateMiaoshaProd, "POST", $scope.data).then(function(res) {
             console.log(res)
             if(!!res.success){
                 $uibModalInstance.close('success');
+                toastr.success(res.message,"success");
             }else {
                 toastr.error(res.message,"服务器提示：");
             }
@@ -147,34 +170,3 @@ App.controller("editseckillProductController", function($scope, $uibModalInstanc
         $uibModalInstance.dismiss('dismiss');
     };
 });
-//添加
-//App.controller("addseckillProductController", function($scope, $uibModalInstance, restful,$rootScope, $uibModal, toastr,ngProgressFactory) {
-//  $scope.progressbar = ngProgressFactory.createInstance();
-//  $scope.data = {actType:0};//0-秒杀 1-限时特卖
-//  //时间转时间戳
-//  $scope.OnSetTime = function (time) {
-//    $scope.data[time] = new Date($scope[time]).getTime();
-//  }
-//  $scope.save = function() {
-//    $scope.progressbar.start();
-//    console.log("param",$scope.data)
-//    restful.fetch($rootScope.api.saveActivity, "POST", $scope.data).then(function(res) {
-//      console.log(res)
-//      if(!!res.success){
-//        $uibModalInstance.close('success');
-//      }else {
-//        toastr.error(res.message,"服务器提示：");
-//      }
-//      $scope.progressbar.complete();
-//
-//    }, function(rej) {
-//      console.log(rej);
-//      $scope.progressbar.complete();
-//      toastr.error(rej.status+"("+rej.statusText+")","请求失败：");
-//    })
-//  };
-//
-//  $scope.close = function() {
-//    $uibModalInstance.dismiss('dismiss');
-//  };
-//});
