@@ -22,7 +22,10 @@ App.config(function($stateProvider, $urlRouterProvider,$locationProvider,$qProvi
         //营销模块-》秒杀
         .state('seckillActivity', {
             url: '/marketingActivity/seckillActivity',
-            templateUrl: 'views/marketingActivity/seckillActivity.html'
+            templateUrl: 'views/marketingActivity/seckillActivity.html',
+            controller:function($rootScope){
+                $rootScope.title="秒杀活动";
+            }
         })
         //营销模块-》秒杀商品
         .state('seckillProduct', {
@@ -31,7 +34,10 @@ App.config(function($stateProvider, $urlRouterProvider,$locationProvider,$qProvi
               'status':null
             },
             url: '/marketingActivity/seckillProduct',
-            templateUrl: 'views/marketingActivity/seckillProduct.html'
+            templateUrl: 'views/marketingActivity/seckillProduct.html',
+            controller:function($rootScope){
+                $rootScope.title="秒杀商品列表";
+            }
         })
         //营销模块-》新增秒杀商品
         .state('addSeckillProduct', {
@@ -39,12 +45,32 @@ App.config(function($stateProvider, $urlRouterProvider,$locationProvider,$qProvi
                 'activityId': null
             },
             url: '/marketingActivity/addSeckillProduct',
-            templateUrl: 'views/marketingActivity/addSeckillProduct.html'
+            templateUrl: 'views/marketingActivity/addSeckillProduct.html',
+            controller:function($rootScope){
+                $rootScope.title="新增秒杀商品";
+            }
         })
         //营销模块-》限时特价
         .state('timeLimitSale', {
             url: '/marketingActivity/timeLimitSale',
-            templateUrl: 'views/marketingActivity/timeLimitSale.html'
+            templateUrl: 'views/marketingActivity/timeLimitSale.html',
+            controller:function($rootScope){
+                $rootScope.title="限时特价";
+            }
+        })
+        .state('timeLimitSaleProduct', {
+            url: '/marketingActivity/timeLimitSaleProduct',
+            templateUrl: 'views/marketingActivity/timeLimitSaleProduct.html',
+            controller:function($rootScope){
+                $rootScope.title="限时特价商品列表";
+            }
+        })
+        .state('addTimeLimitSaleProduct', {
+            url: '/marketingActivity/addTimeLimitSaleProduct',
+            templateUrl: 'views/marketingActivity/addTimeLimitSaleProduct.html',
+            controller:function($rootScope){
+                $rootScope.title="新增限时特价商品";
+            }
         })
 
 });

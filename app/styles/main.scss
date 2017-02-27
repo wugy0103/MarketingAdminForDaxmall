@@ -3,7 +3,21 @@ body {
   background-color: #fff;
   font-family: "Microsoft Yahei";
 }
-
+.header {
+  .navbar-header {
+    text-align: center;
+    height: 70px;
+    line-height: 70px;
+    font-size: 20px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+  }
+  h4 {
+    text-align: center;
+  }
+}
 //首页
 .main {
   .h1 {
