@@ -59,6 +59,10 @@ App.config(function($stateProvider, $urlRouterProvider,$locationProvider,$qProvi
             }
         })
         .state('timeLimitSaleProduct', {
+            params: {
+                'activityId': null,
+                'status':null
+            },
             url: '/marketingActivity/timeLimitSaleProduct',
             templateUrl: 'views/marketingActivity/timeLimitSaleProduct.html',
             controller:function($rootScope){
@@ -66,6 +70,9 @@ App.config(function($stateProvider, $urlRouterProvider,$locationProvider,$qProvi
             }
         })
         .state('addTimeLimitSaleProduct', {
+            params: {
+                'activityId': null
+            },
             url: '/marketingActivity/addTimeLimitSaleProduct',
             templateUrl: 'views/marketingActivity/addTimeLimitSaleProduct.html',
             controller:function($rootScope){

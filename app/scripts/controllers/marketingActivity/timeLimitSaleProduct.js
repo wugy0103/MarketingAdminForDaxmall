@@ -8,7 +8,7 @@
 'use strict';
 App.controller("timeLimitSaleProductController", function ($scope, ngProgressFactory, restful, $rootScope, $uibModal, toastr,$stateParams,$state) {
     $scope.progressbar = ngProgressFactory.createInstance();
-    $scope.data = {activityId:$stateParams.activityId,status:$stateParams.status};
+    $scope.data = {activityId:$stateParams.activityId,status:$stateParams.status,prodIds:[]};
     //分页
     $scope.data.pageNum = $rootScope.PAGINATION_CONFIG.PAGEINDEX;
     $scope.data.pageSize = $rootScope.PAGINATION_CONFIG.PAGESIZE;
@@ -28,6 +28,7 @@ App.controller("timeLimitSaleProductController", function ($scope, ngProgressFac
     };
     //加载
     $scope.query = function () {
+        $scope.data.prodIds[0] = $scope.data.prodId;
         $scope.progressbar.start();
         console.log("param",$scope.data)
         $scope.activityPromise = restful.fetch($rootScope.api.queryMiaoshaProd, "POST", $scope.data).then(function(res) {

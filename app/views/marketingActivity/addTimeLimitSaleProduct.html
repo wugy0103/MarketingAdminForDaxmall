@@ -134,37 +134,37 @@
                     </div>
                 </div>
             </div>
-            <div class="row" ng-show = "!item.skuList[0]">
-                <div class="form-group col-lg-6">
-                    <label class="col-md-2 control-label">秒杀库存</label>
+            <!--<div class="row" ng-show = "!item.skuList[0]">-->
+                <!--<div class="form-group col-lg-6">-->
+                    <!--<label class="col-md-2 control-label">秒杀库存</label>-->
 
-                    <div class="col-md-8">
-                        <input type="text" class="form-control" ng-model="data.killStock">
-                    </div>
-                </div>
-            </div>
-            <div class="row" ng-show = "item.skuList[0]">
-                <table>
-                    <thead >
-                    <tr>
-                        <th></th>
-                        <th>选择型号</th>
-                        <th>数量</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="skuList in item.skuList">
-                        <td class="col-md-1">{{$index+1}}</td>
-                        <td class="col-md-7"><label>{{skuList.skuName}}</label></td>
-                        <td class="col-md-4">
-                            <input type="text" class="form-control" ng-model="data.skuList[$index].killStock">
-                        </td>
+                    <!--<div class="col-md-8">-->
+                        <!--<input type="text" class="form-control" ng-model="data.killStock">-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="row" ng-show = "item.skuList[0]">-->
+                <!--<table>-->
+                    <!--<thead >-->
+                    <!--<tr>-->
+                        <!--<th></th>-->
+                        <!--<th>选择型号</th>-->
+                        <!--<th>数量</th>-->
+                    <!--</tr>-->
+                    <!--</thead>-->
+                    <!--<tbody>-->
+                    <!--<tr ng-repeat="skuList in item.skuList">-->
+                        <!--<td class="col-md-1">{{$index+1}}</td>-->
+                        <!--<td class="col-md-7"><label>{{skuList.skuName}}</label></td>-->
+                        <!--<td class="col-md-4">-->
+                            <!--<input type="text" class="form-control" ng-model="data.skuList[$index].killStock">-->
+                        <!--</td>-->
 
 
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+                    <!--</tr>-->
+                    <!--</tbody>-->
+                <!--</table>-->
+            <!--</div>-->
 
         </div>
         <div class="modal-footer">

@@ -124,18 +124,18 @@ App.controller("timeLimitSaleController", function ($scope, ngProgressFactory, r
                 toastr.error(rej.status+"("+rej.statusText+")","请求失败：");
             })
     }
-    $scope.toSeckillProduct = function (activityList) {
-        $state.go('seckillProduct',{activityId:activityList.activityId,status:activityList.status});
+    $scope.toTimeLimitSaleProduct = function (activityList) {
+        $state.go('timeLimitSaleProduct',{activityId:activityList.activityId,status:activityList.status});
     }
 });
 //添加
 App.controller("addTimeLimitController", function($scope, $uibModalInstance, restful,$rootScope, $uibModal, toastr,ngProgressFactory) {
     $scope.progressbar = ngProgressFactory.createInstance();
     $scope.zhuangtai = [{
-        stauts: "328运动狂欢节",
+        stauts: "328活动",
         status_id: "0"
     },{
-        stauts: "限时特卖",
+        stauts: "328返场",
         status_id: "1"
     }];
     $scope.data = {actType:1};//0-秒杀 1-限时特卖
@@ -169,10 +169,10 @@ App.controller("addTimeLimitController", function($scope, $uibModalInstance, res
 App.controller("editTimeLimitController", function($scope, $uibModalInstance, restful,$rootScope, $uibModal, toastr,ngProgressFactory,items) {
     $scope.progressbar = ngProgressFactory.createInstance();
     $scope.zhuangtai = [{
-        stauts: "328运动狂欢节",
+        stauts: "328活动",
         status_id: "0"
     },{
-        stauts: "限时特卖",
+        stauts: "328返场",
         status_id: "1"
     }];
     $scope.data = {actType:1,activityId:items.activityId};
