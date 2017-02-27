@@ -131,6 +131,13 @@ App.controller("timeLimitSaleController", function ($scope, ngProgressFactory, r
 //添加
 App.controller("addTimeLimitController", function($scope, $uibModalInstance, restful,$rootScope, $uibModal, toastr,ngProgressFactory) {
     $scope.progressbar = ngProgressFactory.createInstance();
+    $scope.zhuangtai = [{
+        stauts: "328运动狂欢节",
+        status_id: "0"
+    },{
+        stauts: "限时特卖",
+        status_id: "1"
+    }];
     $scope.data = {actType:1};//0-秒杀 1-限时特卖
     //时间转时间戳
     $scope.OnSetTime = function (time) {
@@ -161,6 +168,13 @@ App.controller("addTimeLimitController", function($scope, $uibModalInstance, res
 });
 App.controller("editTimeLimitController", function($scope, $uibModalInstance, restful,$rootScope, $uibModal, toastr,ngProgressFactory,items) {
     $scope.progressbar = ngProgressFactory.createInstance();
+    $scope.zhuangtai = [{
+        stauts: "328运动狂欢节",
+        status_id: "0"
+    },{
+        stauts: "限时特卖",
+        status_id: "1"
+    }];
     $scope.data = {actType:1,activityId:items.activityId};
     $scope.item = angular.copy(items);
     //时间转时间戳
@@ -168,6 +182,7 @@ App.controller("editTimeLimitController", function($scope, $uibModalInstance, re
         $scope.data[time] = new Date($scope.item[time]).getTime();
     }
     $scope.OnSetTime("startDate");
+    $scope.OnSetTime("endDate");
     $scope.save = function() {
         $scope.progressbar.start();
         console.log("param",$scope.data)

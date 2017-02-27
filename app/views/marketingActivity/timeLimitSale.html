@@ -3,7 +3,7 @@
     <form action="" method="POST" ng-enter="search()">
         <section class="parameter">
             <div class="row">
-                <div class="dropdown form-group col-lg-3">
+                <div class="dropdown form-group col-lg-6">
                     <label class="col-md-2 control-label">开始时间</label>
                     <div class="dropdown-toggle col-md-8" id="activityStartDate" role="button" data-toggle="dropdown">
                         <div class="input-group date">
@@ -19,7 +19,7 @@
                                         data-datetimepicker-config="{ dropdownSelector: '#activityStartDate'}" data-on-set-time="OnSetTime('activityStartDate')"></datetimepicker>
                     </ul>
                 </div>
-                <div class="form-group col-lg-3">
+                <div class="form-group col-lg-6">
                     <label class="col-md-2 control-label">活动状态</label>
 
                     <div class="col-md-8">
@@ -108,6 +108,26 @@
         <div class="panel-body">
             <h4>添加活动</h4>
             <div class="row">
+                <div class="form-group col-lg-6">
+                    <label class="col-md-2 control-label">活动标题</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" ng-model="data.name" >
+                    </div>
+                </div>
+                <div class="form-group col-lg-6">
+                    <label class="col-md-3 control-label">活动商品使用标示</label>
+
+                    <div class="col-md-7">
+                        <ui-select allow-clear ng-model="data.actTag" theme="bootstrap" ng-change="query()">
+                            <ui-select-match>{{$select.selected.stauts}}</ui-select-match>
+                            <ui-select-choices repeat="item.stauts as item in zhuangtai | filter: $select.search"
+                                               value="{{$select.selected.stauts}}">
+                                <span ng-bind-html="item.stauts | highlight: $select.search"></span>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                    <input type="hidden" name="status" value="{{data.status}}"/>
+                </div>
                 <div class="dropdown form-group col-lg-6">
                     <label class="col-md-2 control-label">开始时间</label>
 
@@ -124,6 +144,24 @@
                         <datetimepicker data-ng-model="startDate"
                                         data-datetimepicker-config="{ dropdownSelector: '#startDate'}"
                                         data-on-set-time="OnSetTime('startDate')"></datetimepicker>
+                    </ul>
+                </div>
+                <div class="dropdown form-group col-lg-6">
+                    <label class="col-md-2 control-label">结束时间</label>
+
+                    <div class="dropdown-toggle col-md-8" id="endDate" role="button" data-toggle="dropdown">
+                        <div class="input-group date">
+                            <input type="text" class="form-control" disabled ng-model="endDate"
+                                   datetime-transform
+                                   format="yyyy-MM-dd HH:mm">
+                            <input type="hidden" name="endDate" value="{{data.endDate}}"/>
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                        </div>
+                    </div>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="endDate">
+                        <datetimepicker data-ng-model="endDate"
+                                        data-datetimepicker-config="{ dropdownSelector: '#endDate'}"
+                                        data-on-set-time="OnSetTime('endDate')"></datetimepicker>
                     </ul>
                 </div>
             </div>
@@ -143,9 +181,28 @@
         <div class="panel-body">
             <h4>编辑活动</h4>
             <div class="row">
+                <div class="form-group col-lg-6">
+                    <label class="col-md-2 control-label">活动标题</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" ng-model="item.name" >
+                    </div>
+                </div>
+                <div class="form-group col-lg-6">
+                    <label class="col-md-3 control-label">活动商品使用标示</label>
+
+                    <div class="col-md-7">
+                        <ui-select allow-clear ng-model="item.actTag" theme="bootstrap">
+                            <ui-select-match>{{$select.selected.stauts}}</ui-select-match>
+                            <ui-select-choices repeat="item.stauts as item in zhuangtai | filter: $select.search"
+                                               value="{{$select.selected.stauts}}">
+                                <span ng-bind-html="item.stauts | highlight: $select.search"></span>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                    <input type="hidden" name="status" value="{{item.status}}"/>
+                </div>
                 <div class="dropdown form-group col-lg-6">
                     <label class="col-md-2 control-label">开始时间</label>
-
                     <div class="dropdown-toggle col-md-8" id="startDate1" role="button" data-toggle="dropdown">
                         <div class="input-group date">
                             <input type="text" class="form-control" disabled ng-model="item.startDate"
@@ -161,7 +218,25 @@
                                         data-on-set-time="OnSetTime('startDate')"></datetimepicker>
                     </ul>
                 </div>
+                <div class="dropdown form-group col-lg-6">
+                    <label class="col-md-2 control-label">结束时间</label>
+                    <div class="dropdown-toggle col-md-8" id="endDate1" role="button" data-toggle="dropdown">
+                        <div class="input-group date">
+                            <input type="text" class="form-control" disabled ng-model="item.endDate"
+                                   datetime-transform
+                                   format="yyyy-MM-dd HH:mm">
+                            <input type="hidden" name="endDate1" value="{{item.endDate}}"/>
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                        </div>
+                    </div>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="endDate1">
+                        <datetimepicker data-ng-model="item.endDate"
+                                        data-datetimepicker-config="{ dropdownSelector: '#endDate1'}"
+                                        data-on-set-time="OnSetTime('endDate')"></datetimepicker>
+                    </ul>
+                </div>
             </div>
+
         </div>
         <div class="modal-footer">
             <span class="text-danger pull-left" ng-bind="error"></span>

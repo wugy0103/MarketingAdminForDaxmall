@@ -3,14 +3,14 @@
     <form action="" method="POST" ng-enter="search()">
         <section class="parameter">
             <div class="row">
-                <div class="form-group col-lg-3">
+                <div class="form-group col-lg-6">
                     <label class="col-md-2 control-label">商品类目</label>
 
                     <div class="col-md-8">
                         <input type="text" class="form-control" ng-model="data.categoryId" name="categoryId">
                     </div>
                 </div>
-                <div class="form-group col-lg-3">
+                <div class="form-group col-lg-6">
                     <label class="col-md-2 control-label">商品Id</label>
 
                     <div class="col-md-8">
@@ -113,7 +113,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="form-group col-lg-3">
+                <div class="form-group col-lg-6">
                     <label class="col-md-2 control-label">销售价</label>
                     <div class="col-md-8">
                         <input type="text" class="form-control" value="{{item.originalProdPrice}}" disabled >
@@ -121,7 +121,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="form-group col-lg-3">
+                <div class="form-group col-lg-6">
                     <label class="col-md-2 control-label">秒杀价</label>
 
                     <div class="col-md-8">
@@ -130,44 +130,44 @@
                 </div>
             </div>
             <div class="row">
-                <div class="form-group col-lg-3">
-                    <label class="col-md-2 control-label">限购数</label>
+                <div class="form-group col-lg-6">
+                    <label class="col-md-2 control-label">单个用户购买上限数</label>
 
                     <div class="col-md-8">
                         <input type="text" class="form-control" ng-model="item.limitAmount">
                     </div>
                 </div>
             </div>
-            <div class="row" ng-show = "!item.skuList[0]">
-                <div class="form-group col-lg-3">
-                    <label class="col-md-2 control-label">实际库存</label>
-                    <div class="col-md-8">
-                        <input type="text" class="form-control" ng-model="item.actualStock">
-                    </div>
-                </div>
-            </div>
-            <div class="row" ng-show = "item.skuList[0]">
-                <table>
-                    <thead >
-                    <tr>
-                        <th></th>
-                        <th>选择型号</th>
-                        <th>数量</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="skuList in item.skuList">
-                        <td class="col-md-1">{{$index+1}}</td>
-                        <td class="col-md-7"><label>{{skuList.skuName}}</label></td>
-                        <td class="col-md-4">
-                            <input type="text" class="form-control" ng-model="item.skuList[$index].killStock">
-                        </td>
+            <!--<div class="row" ng-show = "!item.skuList[0]">-->
+                <!--<div class="form-group col-lg-6">-->
+                    <!--<label class="col-md-2 control-label">实际库存</label>-->
+                    <!--<div class="col-md-8">-->
+                        <!--<input type="text" class="form-control" ng-model="item.actualStock">-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="row" ng-show = "item.skuList[0]">-->
+                <!--<table>-->
+                    <!--<thead >-->
+                    <!--<tr>-->
+                        <!--<th></th>-->
+                        <!--<th>选择型号</th>-->
+                        <!--<th>数量</th>-->
+                    <!--</tr>-->
+                    <!--</thead>-->
+                    <!--<tbody>-->
+                    <!--<tr ng-repeat="skuList in item.skuList">-->
+                        <!--<td class="col-md-1">{{$index+1}}</td>-->
+                        <!--<td class="col-md-7"><label>{{skuList.skuName}}</label></td>-->
+                        <!--<td class="col-md-4">-->
+                            <!--<input type="text" class="form-control" ng-model="item.skuList[$index].killStock">-->
+                        <!--</td>-->
 
 
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+                    <!--</tr>-->
+                    <!--</tbody>-->
+                <!--</table>-->
+            <!--</div>-->
 
         </div>
         <div class="modal-footer">
