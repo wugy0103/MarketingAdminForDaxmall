@@ -34,6 +34,7 @@ App.controller("addSeckillProductController", function ($scope, ngProgressFactor
             console.log(res)
             if(!!res.success){
                 $scope.noSeckillProductData = res.model;
+              $scope.total=res.query.total;
             }else {
                 toastr.error(res.message,"服务器错误：");
             }
@@ -146,15 +147,14 @@ App.controller("addAllController", function($scope, $uibModalInstance, restful,$
         limitAmount:""
     }
     $scope.item = angular.copy(items);
+        angular.forEach($scope.item, function(item,i) {
+            if (item.selected) {
+                $scope.data.prodIds.push(item.prodId);
+            }
+            })
 
-      angular.forEach($scope.item, function(item,i) {
-          if (item.selected) {
-              $scope.data.prodIds.push(item.prodId);
-          }
-          })
-
-    console.log($scope.item);
-    $scope.save = function() {
+    $scope.selectNum = $scope.data.prodIds.length ;
+  $scope.save = function() {
         $scope.progressbar.start();
         console.log("param",$scope.data)
         restful.fetch($rootScope.api.addProduct, "POST", $scope.data).then(function(res) {

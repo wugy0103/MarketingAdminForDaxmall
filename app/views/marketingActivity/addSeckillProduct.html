@@ -72,7 +72,7 @@
             </table>
             <div ng-if="!noSeckillProductData.length" class="noData text-center">暂无数据</div>
         </div>
-        <section style="margin:0 0 10px 5px;">本次查询共 <strong>{{seckillProductData.query.total || 0}}</strong>个结果</section>
+        <section style="margin:0 0 10px 5px;">本次查询共 <strong>{{total || 0}}</strong>个结果</section>
         <div class="row">
             <div class="col-md-9">
                 <select class="page-size" ng-model="data.pageSize" ng-change="pageChanged()">
@@ -82,7 +82,7 @@
                     <option value="80">每页显示80条</option>
                     <option value="100">每页显示100条</option>
                 </select>
-                <uib-pagination ng-change="pageChanged()" ng-model="data.pageNum" total-items="seckillProductData.query.total"
+                <uib-pagination ng-change="pageChanged()" ng-model="data.pageNum" total-items="total"
                                 max-size="maxSize" items-per-page="data.pageSize" class="pagination-sm"
                                 boundary-link-numbers="true"
                                 rotate="false" previous-text="上一页" next-text="下一页"></uib-pagination>
@@ -187,7 +187,7 @@
                 <div class="form-group col-lg-6">
                     <label class="col-md-4 control-label">选定商品数量</label>
                     <div class="col-md-4">
-                        <input type="text" class="form-control" value="{{item.cash}}" disabled ><span style="position: absolute;top: 10px;right: 0;">件</span>
+                        <input type="text" class="form-control" value="{{selectNum}}" disabled ><span style="position: absolute;top: 10px;right: 0;">件</span>
                     </div>
                 </div>
             </div>

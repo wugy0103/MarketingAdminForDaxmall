@@ -62,14 +62,14 @@
                     <td>{{activityList.actProdQuantity}}</td>
                     <td>
 
-                        <a ng-hide="data.status==2" href="javascript:;" class="text-primary" ng-click="editActivity(activityList)">编辑&nbsp;</a>
+                        <a href="javascript:;" class="text-primary" ng-click="editActivity(activityList)">编辑&nbsp;</a>
                         <a ng-show="(data.status==0 || activityList.status==0)" href="javascript:;" class="text-primary" ng-click="updateActivity(activityList,'1')">上线&nbsp;</a>
                         <span ng-hide = "(data.status==2 && activityList.status==0)">
                             <a ng-show="(data.status==1 || data.status==2)" href="javascript:;" class="text-primary" ng-click="updateActivity(activityList,'0')">下线&nbsp;</a>
                         </span>
                         <a ng-show="(data.status==-1)" href="javascript:;" class="text-primary" ng-click="updateActivity(activityList,'-2')">删除&nbsp;</a>
                         <a ng-show="data.status==-1" href="javascript:;" class="text-primary" ng-click="updateActivity(activityList,'0')">还原&nbsp;</a>
-                        <a ng-show="data.status==0" href="javascript:;" class="text-primary" ng-click="updateActivity(activityList,'-1')">回收</a>
+                        <a ng-show="(data.status==0 || data.status==2)" href="javascript:;" class="text-primary" ng-click="updateActivity(activityList,'-1')">回收</a>
                     </td>
                     <td>
                         <a href="javascript:;" class=" btn btn-raised text-primary" ng-click="toSeckillProduct(activityList)">查看活动商品&nbsp;</a>

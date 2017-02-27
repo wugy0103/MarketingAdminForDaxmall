@@ -34,6 +34,7 @@ App.controller("seckillProductController", function ($scope, ngProgressFactory, 
             console.log(res)
             if(!!res.success){
                 $scope.seckillProductData = res.model;
+              $scope.total=res.query.total;
             }else {
                 toastr.error(res.message,"服务器错误：");
             }
