@@ -7,14 +7,14 @@
                     <label class="col-md-2 control-label">商品类目</label>
 
                     <div class="col-md-8">
-                        <input type="text" class="form-control" ng-model="data.categoryId" name="categoryId">
+                        <textarea type="text" class="form-control" ng-model="data.categoryName" name="categoryNames" placeholder="多个类目名请用英文逗号隔开"></textarea>
                     </div>
                 </div>
                 <div class="form-group col-lg-6">
                     <label class="col-md-2 control-label">商品Id</label>
 
                     <div class="col-md-8">
-                        <input type="text" class="form-control" ng-model="data.prodId" name="prodId">
+                        <textarea type="text" class="form-control" ng-model="data.prodId" name="prodIds" placeholder="多个id请用英文逗号隔开"></textarea>
                     </div>
                 </div>
             </div>
@@ -63,7 +63,7 @@
                     <td class="imgbox"><img src="{{seckillProductList.pic}}" alt="{{seckillProductList.prodName}}"/></td>
                     <td>{{seckillProductList.prodName}}</td>
                     <td>{{seckillProductList.killPrice}}</td>
-                    <td>{{seckillProductList.cash}}</td>
+                    <td>{{seckillProductList.originalProdPrice}}</td>
                     <td>
 
                         <a href="javascript:;" class="text-primary" ng-click="editseckillProduct(seckillProductList)">编辑&nbsp;</a>
@@ -106,7 +106,7 @@
             <h4>编辑商品</h4>
             <div class="row">
                 <div class="col-md-3 ">
-                    <img src="{{item.pic}}" alt="{{item.prodName}}"/>
+                    <img width="100%" src="{{item.pic}}" alt="{{item.prodName}}"/>
                 </div>
                 <div class="col-md-8 ">
                     <h5>{{item.prodName}}</h5>
@@ -122,19 +122,19 @@
             </div>
             <div class="row">
                 <div class="form-group col-lg-6">
-                    <label class="col-md-2 control-label">秒杀价</label>
+                    <label class="col-md-2 control-label">* 秒杀价</label>
 
                     <div class="col-md-8">
-                        <input type="text" class="form-control" ng-model="item.killPrice" >
+                        <input required type="text" class="form-control" ng-model="item.killPrice" >
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="form-group col-lg-6">
-                    <label class="col-md-2 control-label">限购数</label>
+                    <label class="col-md-2 control-label">* 限购数</label>
 
                     <div class="col-md-8">
-                        <input type="text" class="form-control" ng-model="item.limitAmount">
+                        <input required type="text" class="form-control" ng-model="item.limitAmount">
                     </div>
                 </div>
             </div>

@@ -7,14 +7,14 @@
                     <label class="col-md-2 control-label">商品类目</label>
 
                     <div class="col-md-8">
-                        <input type="text" class="form-control" ng-model="data.categoryId" name="categoryId">
+                        <textarea type="text" class="form-control" ng-model="data.categoryName" name="categoryNames" placeholder="多个类目名请用英文逗号隔开"></textarea>
                     </div>
                 </div>
                 <div class="form-group col-lg-6">
                     <label class="col-md-2 control-label">商品Id</label>
 
                     <div class="col-md-8">
-                        <input type="text" class="form-control" ng-model="data.prodId" name="prodId">
+                        <textarea type="text" class="form-control" ng-model="data.prodId" name="prodIds" placeholder="多个id请用英文逗号隔开"></textarea>
                     </div>
                 </div>
             </div>
@@ -102,7 +102,7 @@
             <h4>加入活动</h4>
             <div class="row">
                 <div class="col-md-3 ">
-                    <img src="{{item.pic}}" alt="{{item.name}}"/>
+                    <img width="100%" src="{{item.pic}}" alt="{{item.name}}"/>
                 </div>
                 <div class="col-md-8 ">
                     <h5>{{item.name}}</h5>
@@ -118,10 +118,10 @@
             </div>
             <div class="row">
                 <div class="form-group col-lg-6">
-                    <label class="col-md-2 control-label">秒杀价</label>
+                    <label class="col-md-2 control-label">* 秒杀价</label>
 
                     <div class="col-md-8">
-                        <input type="text" class="form-control" ng-model="data.killPrice" >
+                        <input required type="text" class="form-control" ng-model="data.killPrice" >
                     </div>
                 </div>
             </div>
@@ -155,9 +155,9 @@
                     <tbody>
                     <tr ng-repeat="skuList in item.skuList">
                         <td class="col-md-1">{{$index+1}}</td>
-                        <td class="col-md-7"><label>{{skuList.skuName}}</label></td>
+                        <td class="col-md-7"><label>* {{skuList.skuName}}</label></td>
                         <td class="col-md-4">
-                            <input type="text" class="form-control" ng-model="data.skuList[$index].killStock">
+                            <input required type="text" class="form-control" ng-model="data.skuList[$index].killStock">
                         </td>
 
 
@@ -193,19 +193,19 @@
             </div>
             <div class="row">
                 <div class="form-group col-lg-6">
-                    <label class="col-md-4 control-label">选定商品价格下调比例</label>
+                    <label class="col-md-5 control-label">* 选定商品价格下调比例</label>
 
                     <div class="col-md-4">
-                        <input type="text" class="form-control" ng-model="data.priceRate" ><span style="position: absolute;top: 10px;right: 0;">%</span>
+                        <input required type="text" class="form-control" ng-model="data.priceRate" ><span style="position: absolute;top: 10px;right: 0;">%</span>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="form-group col-lg-6">
-                    <label class="col-md-4 control-label">商品SKU数量</label>
+                    <label class="col-md-4 control-label">* 商品SKU数量</label>
 
                     <div class="col-md-4">
-                        <input type="text" class="form-control" ng-model="data.killStock">
+                        <input required type="text" class="form-control" ng-model="data.killStock">
                     </div>
                 </div>
             </div>

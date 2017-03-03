@@ -28,7 +28,12 @@ App.controller("seckillProductController", function ($scope, ngProgressFactory, 
     };
     //加载
     $scope.query = function () {
-        $scope.data.prodIds[0] = $scope.data.prodId;
+        if(!!$scope.data.categoryName){
+            $scope.data.categoryNames = angular.copy($scope.data.categoryName).split(",");
+        }
+        if(!!$scope.data.prodId){
+            $scope.data.prodIds = angular.copy($scope.data.prodId).split(",");
+        }
         $scope.progressbar.start();
         console.log("param",$scope.data)
         $scope.activityPromise = restful.fetch($rootScope.api.queryMiaoshaProd, "POST", $scope.data).then(function(res) {

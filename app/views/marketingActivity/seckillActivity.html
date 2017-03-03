@@ -109,11 +109,11 @@
             <h4>添加活动</h4>
             <div class="row">
                 <div class="dropdown form-group col-lg-6">
-                    <label class="col-md-2 control-label">开始时间</label>
+                    <label class="col-md-2 control-label">* 开始时间</label>
 
                     <div class="dropdown-toggle col-md-8" id="startDate" role="button" data-toggle="dropdown">
                         <div class="input-group date">
-                            <input type="text" class="form-control" disabled ng-model="startDate"
+                            <input required type="text" class="form-control" disabled ng-model="startDate"
                                    datetime-transform
                                    format="yyyy-MM-dd HH:mm">
                             <input type="hidden" name="startDate" value="{{data.startDate}}"/>
@@ -144,11 +144,11 @@
             <h4>编辑活动</h4>
             <div class="row">
                 <div class="dropdown form-group col-lg-6">
-                    <label class="col-md-2 control-label">开始时间</label>
+                    <label class="col-md-2 control-label">* 开始时间</label>
 
                     <div class="dropdown-toggle col-md-8" id="startDate1" role="button" data-toggle="dropdown">
                         <div class="input-group date">
-                            <input type="text" class="form-control" disabled ng-model="item.startDate"
+                            <input required type="text" class="form-control" disabled ng-model="item.startDate"
                                    datetime-transform
                                    format="yyyy-MM-dd HH:mm">
                             <input type="hidden" name="startDate1" value="{{item.startDate}}"/>

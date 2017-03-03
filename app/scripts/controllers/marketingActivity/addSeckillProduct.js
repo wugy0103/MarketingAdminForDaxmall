@@ -28,6 +28,12 @@ App.controller("addSeckillProductController", function ($scope, ngProgressFactor
     };
     //加载
     $scope.query = function () {
+        if(!!$scope.data.categoryName){
+            $scope.data.categoryNames = angular.copy($scope.data.categoryName).split(",");
+        }
+        if(!!$scope.data.prodId){
+            $scope.data.prodIds = angular.copy($scope.data.prodId).split(",");
+        }
         $scope.progressbar.start();
         console.log("param",$scope.data)
         $scope.activityPromise = restful.fetch($rootScope.api.queryProd, "POST", $scope.data).then(function(res) {
@@ -39,7 +45,6 @@ App.controller("addSeckillProductController", function ($scope, ngProgressFactor
                 toastr.error(res.message,"服务器错误：");
             }
             $scope.progressbar.complete();
-
         }, function(rej) {
             console.log(rej);
             $scope.progressbar.complete();
