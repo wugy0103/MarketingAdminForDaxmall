@@ -154,10 +154,13 @@
                     </thead>
                     <tbody>
                     <tr ng-repeat="skuList in item.skuList">
-                        <td class="col-md-1">{{$index+1}}</td>
-                        <td class="col-md-7"><label>* {{skuList.skuName}}</label></td>
+                        <td class="col-md-1">* {{$index+1}}</td>
+                        <td class="col-md-7"><label>{{skuList.skuName}}</label></td>
                         <td class="col-md-4">
-                            <input required type="text" class="form-control" ng-model="data.skuList[$index].killStock">
+                            <div class="form-group">
+                                <input required type="text" class="form-control" ng-model="data.skuList[$index].killStock">
+                            </div>
+
                         </td>
 
 

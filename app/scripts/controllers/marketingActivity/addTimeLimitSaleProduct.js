@@ -25,7 +25,15 @@ App.controller("addTimeLimitSaleProductController", function ($scope, ngProgress
       $scope.isAllSelected = $scope.noSeckillProductData.every(function (item) {
         return item.selected;
       })
+        //$scope.noSeckillProductData.every(function(item) {
+        //    $scope.isSeclected = false;
+        //    if(item.selected){
+        //        $scope.isSeclected = true;
+        //        return
+        //    }
+        //});
     };
+    //$scope.isSeclected = false;
     //加载
     $scope.query = function () {
         if(!!$scope.data.categoryName){

@@ -23,7 +23,7 @@
             <button type="button" class="btn btn-raised btn-primary" ng-click="search()">查询</button>
             <button type="button" class="btn btn-raised btn-default" ng-click="reset()">重置查询条件</button>
             <div class="button-first">
-                <button type="button" class="btn btn-raised btn-warning" ng-disabled="isSelected" ng-click="addAll(noSeckillProductData)">加入活动（设比率）</button>
+                <button type="button" class="btn btn-raised btn-warning" ng-disabled="isSeclected" ng-click="addAll(noSeckillProductData)">加入活动（设比率）</button>
             </div>
         </div>
     </form>
@@ -118,10 +118,10 @@
             </div>
             <div class="row">
                 <div class="form-group col-lg-6">
-                    <label class="col-md-2 control-label">限时特卖价</label>
+                    <label class="col-md-3 control-label">* 限时特卖价</label>
 
                     <div class="col-md-8">
-                        <input type="text" class="form-control" ng-model="data.killPrice" >
+                        <input required type="text" class="form-control" ng-model="data.killPrice" >
                     </div>
                 </div>
             </div>
@@ -193,10 +193,10 @@
             </div>
             <div class="row">
                 <div class="form-group col-lg-6">
-                    <label class="col-md-4 control-label">选定商品价格下调比例</label>
+                    <label class="col-md-5 control-label">* 选定商品价格下调比例</label>
 
                     <div class="col-md-4">
-                        <input type="text" class="form-control" ng-model="data.priceRate" ><span style="position: absolute;top: 10px;right: 0;">%</span>
+                        <input required type="text" class="form-control" ng-model="data.priceRate" ><span style="position: absolute;top: 10px;right: 0;">%</span>
                     </div>
                 </div>
             </div>
