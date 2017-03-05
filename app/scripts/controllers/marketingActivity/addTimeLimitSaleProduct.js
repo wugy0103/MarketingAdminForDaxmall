@@ -38,9 +38,13 @@ App.controller("addTimeLimitSaleProductController", function ($scope, ngProgress
     $scope.query = function () {
         if(!!$scope.data.categoryName){
             $scope.data.categoryNames = angular.copy($scope.data.categoryName).split(",");
+        }else{
+            $scope.data.categoryNames = [];
         }
         if(!!$scope.data.prodId){
             $scope.data.prodIds = angular.copy($scope.data.prodId).split(",");
+        }else {
+            $scope.data.prodIds = [];
         }
         $scope.progressbar.start();
         console.log("param",$scope.data)

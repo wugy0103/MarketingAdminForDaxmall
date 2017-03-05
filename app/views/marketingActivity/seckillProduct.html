@@ -131,36 +131,54 @@
             </div>
             <div class="row">
                 <div class="form-group col-lg-6">
-                    <label class="col-md-2 control-label">* 限购数</label>
+                    <label class="col-md-2 control-label">限购数</label>
 
                     <div class="col-md-8">
-                        <input required type="text" class="form-control" ng-model="item.limitAmount">
+                        <input type="text" class="form-control" ng-model="item.limitAmount">
                     </div>
                 </div>
             </div>
-            <div class="row" ng-show = "!item.skuList[0]">
+            <div class="row" ng-if = "!item.skuList[0]">
                 <div class="form-group col-lg-6">
                     <label class="col-md-2 control-label">实际库存</label>
                     <div class="col-md-8">
-                        <input type="text" class="form-control" ng-model="item.actualStock">
+                        <input disabled type="text" class="form-control" ng-model="item.actualStock">
                     </div>
                 </div>
             </div>
-            <div class="row" ng-show = "item.skuList[0]">
+            <div class="row" ng-if = "!item.skuList[0]">
+                <div class="form-group col-lg-6">
+                    <label class="col-md-3 control-label">* 秒杀库存</label>
+                    <div class="col-md-8">
+                        <input required type="text" class="form-control" ng-model="item.killStock">
+                    </div>
+                </div>
+            </div>
+            <div class="row" ng-if = "item.skuList[0]">
                 <table>
                     <thead >
                     <tr>
                         <th></th>
                         <th>选择型号</th>
+                        <th>实际库存</th>
                         <th>数量</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr ng-repeat="skuList in item.skuList">
-                        <td class="col-md-1">{{$index+1}}</td>
+                        <td class="col-md-1">* {{$index+1}}</td>
                         <td class="col-md-7"><label>{{skuList.skuName}}</label></td>
-                        <td class="col-md-4">
-                            <input type="text" class="form-control" ng-model="item.skuList[$index].killStock">
+                        <td class="col-md-2">
+                            <div class="form-group">
+                                <input disabled type="text" class="form-control" ng-model="item.skuList[$index].actualStock">
+                            </div>
+
+                        </td>
+                        <td class="col-md-2">
+                            <div class="form-group">
+                                <input required type="text" class="form-control" ng-model="item.skuList[$index].killStock">
+                            </div>
+
                         </td>
 
 

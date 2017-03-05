@@ -60,7 +60,8 @@
                     <td>{{$index+1}}</td>
                     <td class="imgbox"><img src="{{seckillProductList.pic}}" alt="{{seckillProductList.name}}"/></td>
                     <td>{{seckillProductList.name}}</td>
-                    <td>{{seckillProductList.cash}}</td>
+                    <td ng-show = "!!{{seckillProductList.price}}">{{seckillProductList.price}}</td>
+                    <td ng-show = "!{{seckillProductList.price}}">{{seckillProductList.cash}}</td>
                     <td>
 
                         <a href="javascript:;" class="text-primary" ng-click="addProduct(seckillProductList)">加入活动&nbsp;</a>

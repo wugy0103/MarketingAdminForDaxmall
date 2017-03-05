@@ -30,9 +30,13 @@ App.controller("seckillProductController", function ($scope, ngProgressFactory, 
     $scope.query = function () {
         if(!!$scope.data.categoryName){
             $scope.data.categoryNames = angular.copy($scope.data.categoryName).split(",");
+        }else{
+            $scope.data.categoryNames = [];
         }
         if(!!$scope.data.prodId){
             $scope.data.prodIds = angular.copy($scope.data.prodId).split(",");
+        }else {
+            $scope.data.prodIds = [];
         }
         $scope.progressbar.start();
         console.log("param",$scope.data)
@@ -152,6 +156,7 @@ App.controller("editseckillProductController", function($scope, $uibModalInstanc
     $scope.save = function() {
         $scope.data= {
             killPrice:$scope.item.killPrice,
+            killStock:$scope.item.killStock,
             limitAmount:$scope.item.limitAmount,
             miaoshaProdIds:[JSON.stringify($scope.item.miaoshaProdId)],
             skuList:$scope.item.skuList

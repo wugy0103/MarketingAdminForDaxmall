@@ -184,6 +184,8 @@ App.controller("editTimeLimitController", function($scope, $uibModalInstance, re
     $scope.OnSetTime("startDate");
     $scope.OnSetTime("endDate");
     $scope.save = function() {
+        $scope.data.name = $scope.item.name;
+        $scope.data.actTag = $scope.item.actTag;
         $scope.progressbar.start();
         console.log("param",$scope.data)
         restful.fetch($rootScope.api.saveActivity, "POST", $scope.data).then(function(res) {
