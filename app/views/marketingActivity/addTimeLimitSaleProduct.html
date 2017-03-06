@@ -111,9 +111,10 @@
             </div>
             <div class="row">
                 <div class="form-group col-lg-6">
-                    <label class="col-md-2 control-label">销售价</label>
+                    <label class="col-md-2 control-label">原价</label>
                     <div class="col-md-8">
-                        <input type="text" class="form-control" value="{{item.cash}}" disabled >
+                        <input ng-show = "{{!!item.price}}" type="text" class="form-control" value="{{item.price}}" disabled >
+                        <input ng-show = "{{!item.price}}" type="text" class="form-control" value="{{item.cash}}" disabled >
                     </div>
                 </div>
             </div>
