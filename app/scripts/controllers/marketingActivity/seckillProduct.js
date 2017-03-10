@@ -153,15 +153,25 @@ App.controller("seckillProductController", function ($scope, ngProgressFactory, 
 App.controller("editseckillProductController", function($scope, $uibModalInstance, restful,$rootScope, $uibModal, toastr,ngProgressFactory,items) {
     $scope.progressbar = ngProgressFactory.createInstance();
     $scope.item = angular.copy(items);
+    $scope.item2 = angular.copy(items);
     $scope.save = function() {
         $scope.data= {
             killPrice:$scope.item.killPrice,
-            killStock:$scope.item.killStock,
+            killStock:$scope.item2.killStock,
+            increaseStock:$scope.item.killStock-$scope.item2.killStock,
             limitAmount:$scope.item.limitAmount,
             miaoshaProdIds:[JSON.stringify($scope.item.miaoshaProdId)],
-            skuList:$scope.item.skuList
+            skuList:angular.copy($scope.item.skuList)
         };
-        $scope.progressbar.start();
+      if($scope.data.skuList){
+        angular.forEach($scope.data.skuList, function(item1,i) {
+          debugger
+          $scope.data.skuList[i].killStock = $scope.item2.skuList[i].killStock;
+          $scope.data.skuList[i].increaseStock = $scope.item.skuList[i].killStock-$scope.item2.skuList[i].killStock;
+        });
+
+      }
+      $scope.progressbar.start();
         console.log("param",$scope.data)
         restful.fetch($rootScope.api.updateMiaoshaProd, "POST", $scope.data).then(function(res) {
             console.log(res)
