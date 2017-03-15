@@ -16,7 +16,7 @@
                     </div>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="activityStartDate">
                         <datetimepicker data-ng-model="activityStartDate"
-                                        data-datetimepicker-config="{ dropdownSelector: '#activityStartDate'}" data-on-set-time="OnSetTime('activityStartDate')"></datetimepicker>
+                                        data-datetimepicker-config="{ dropdownSelector: '#activityStartDate',minuteStep:1}" data-on-set-time="OnSetTime('activityStartDate')"></datetimepicker>
                     </ul>
                 </div>
                 <div class="form-group col-lg-6">
@@ -115,10 +115,10 @@
                     </div>
                 </div>
                 <div class="form-group col-lg-6">
-                    <label class="col-md-4 control-label">* 活动商品使用标示</label>
+                    <label class="col-md-4 control-label">活动商品使用标示</label>
 
                     <div class="col-md-7">
-                        <ui-select required allow-clear ng-model="data.actTag" theme="bootstrap" ng-change="query()">
+                        <ui-select allow-clear ng-model="data.actTag" theme="bootstrap" ng-change="query()">
                             <ui-select-match>{{$select.selected.stauts}}</ui-select-match>
                             <ui-select-choices repeat="item.stauts as item in zhuangtai | filter: $select.search"
                                                value="{{$select.selected.stauts}}">
@@ -142,7 +142,7 @@
                     </div>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="startDate">
                         <datetimepicker data-ng-model="startDate"
-                                        data-datetimepicker-config="{ dropdownSelector: '#startDate'}"
+                                        data-datetimepicker-config="{ dropdownSelector: '#startDate',minuteStep:1}"
                                         data-on-set-time="OnSetTime('startDate')"></datetimepicker>
                     </ul>
                 </div>
@@ -160,7 +160,7 @@
                     </div>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="endDate">
                         <datetimepicker data-ng-model="endDate"
-                                        data-datetimepicker-config="{ dropdownSelector: '#endDate'}"
+                                        data-datetimepicker-config="{ dropdownSelector: '#endDate',minuteStep:1}"
                                         data-on-set-time="OnSetTime('endDate')"></datetimepicker>
                     </ul>
                 </div>
@@ -188,10 +188,10 @@
                     </div>
                 </div>
                 <div class="form-group col-lg-6">
-                    <label class="col-md-4 control-label">* 活动商品使用标示</label>
+                    <label class="col-md-4 control-label">活动商品使用标示</label>
 
                     <div class="col-md-7">
-                        <ui-select required allow-clear ng-model="item.actTag" theme="bootstrap">
+                        <ui-select allow-clear ng-model="item.actTag" theme="bootstrap">
                             <ui-select-match>{{$select.selected.stauts}}</ui-select-match>
                             <ui-select-choices repeat="item.stauts as item in zhuangtai | filter: $select.search"
                                                value="{{$select.selected.stauts}}">
@@ -214,7 +214,7 @@
                     </div>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="startDate1">
                         <datetimepicker data-ng-model="item.startDate"
-                                        data-datetimepicker-config="{ dropdownSelector: '#startDate1'}"
+                                        data-datetimepicker-config="{ dropdownSelector: '#startDate1',minuteStep:1}"
                                         data-on-set-time="OnSetTime('startDate')"></datetimepicker>
                     </ul>
                 </div>
@@ -231,7 +231,7 @@
                     </div>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="endDate1">
                         <datetimepicker data-ng-model="item.endDate"
-                                        data-datetimepicker-config="{ dropdownSelector: '#endDate1'}"
+                                        data-datetimepicker-config="{ dropdownSelector: '#endDate1',minuteStep:1}"
                                         data-on-set-time="OnSetTime('endDate')"></datetimepicker>
                     </ul>
                 </div>

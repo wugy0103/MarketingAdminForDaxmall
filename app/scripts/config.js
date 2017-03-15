@@ -17,7 +17,7 @@ App.run(['$rootScope', 'Session', function ($rootScope) {
         IDCARD: /^\d{6}(18|19|20)?\d{2}(0[1-9]|1[12])(0[1-9]|[12]\d|3[01])\d{3}(\d|X)$/i
     };
     //开发地址
-    $rootScope.BASEURL = "http://192.168.2.234:8083/";
+    $rootScope.BASEURL = "http://192.168.2.182:8083/";
     //$rootScope.BASEURL = "http://192.168.2.194:8082/";
     $rootScope.LoaclBASEURL = "http://localhost:3002/api/";
     //服务器地址
