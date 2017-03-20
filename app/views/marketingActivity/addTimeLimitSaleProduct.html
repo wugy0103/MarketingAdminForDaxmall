@@ -143,16 +143,34 @@
                     </div>
                 </div>
             </div>
-            <div class="row" style="margin-left: -3px">
-                <div class="form-group col-lg-6">
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" ng-model="isReset" ng-click="checked()">
-                            <span class="checkbox-material"><span class="check"></span></span> 是否将返利、返佣、猫豆清零
-                        </label>
-                    </div>
-                </div>
+          <div class="row" style="margin-left: -3px">
+            <div class="form-group col-lg-4">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" ng-model="isResetRebate" ng-click="checked('isResetRebate')">
+                  <span class="checkbox-material"><span class="check"></span></span> 是否将返利清零
+                </label>
+              </div>
             </div>
+
+            <div class="form-group col-lg-4">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" ng-model="isResetMallbeanRate" ng-click="checked('isResetMallbeanRate')">
+                  <span class="checkbox-material"><span class="check"></span></span> 是否将返佣清零
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group col-lg-4">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" ng-model="isResetDistCommisRate" ng-click="checked('isResetDistCommisRate')">
+                  <span class="checkbox-material"><span class="check"></span></span> 是否将猫豆清零
+                </label>
+              </div>
+            </div>
+          </div>
             <!--<div class="row" ng-show = "!item.skuList[0]">-->
                 <!--<div class="form-group col-lg-6">-->
                     <!--<label class="col-md-2 control-label">秒杀库存</label>-->
@@ -238,17 +256,33 @@
                 </div>
             </div>
             <div class="row" style="margin-left: -3px">
-                <div class="form-group col-lg-6">
+                <div class="form-group col-lg-4">
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" ng-model="isReset" ng-click="checked()">
-                            <span class="checkbox-material"><span class="check"></span></span> 是否将返利、返佣、猫豆清零
+                            <input type="checkbox" ng-model="isResetRebate" ng-click="checked('isResetRebate')">
+                            <span class="checkbox-material"><span class="check"></span></span> 是否将返利清零
                         </label>
                     </div>
                 </div>
+
+              <div class="form-group col-lg-4">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" ng-model="isResetMallbeanRate" ng-click="checked('isResetMallbeanRate')">
+                    <span class="checkbox-material"><span class="check"></span></span> 是否将返佣清零
+                  </label>
+                </div>
+              </div>
+
+              <div class="form-group col-lg-4">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" ng-model="isResetDistCommisRate" ng-click="checked('isResetDistCommisRate')">
+                    <span class="checkbox-material"><span class="check"></span></span> 是否将猫豆清零
+                  </label>
+                </div>
+              </div>
             </div>
-
-
         </div>
         <div class="modal-footer">
             <span class="text-danger pull-left" ng-bind="error"></span>

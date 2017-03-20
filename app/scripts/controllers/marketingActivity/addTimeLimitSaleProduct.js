@@ -135,11 +135,13 @@ App.controller("addProductController", function($scope, $uibModalInstance, restf
         activityId:$stateParams.activityId,
         prodIds:[JSON.stringify($scope.item.prodId)],
         skuList:[],
-        isReset:false
+      isResetRebate:false,
+      isResetMallbeanRate:false,
+      isResetDistCommisRate:false
     }
-    $scope.checked = function () {
-        $scope.data.isReset =!angular.copy($scope.data.isReset);
-    }
+  $scope.checked = function (key) {
+    $scope.data[key] =!angular.copy($scope.data[key]);
+  }
     $scope.data.skuList = $scope.item.skuList;
     $scope.save = function() {
         $scope.progressbar.start();
@@ -172,10 +174,12 @@ App.controller("addAllController", function($scope, $uibModalInstance, restful,$
         priceRate:"",
         killStock:"",
         limitAmount:"",
-        isReset:false
+        isResetRebate:false,
+        isResetMallbeanRate:false,
+        isResetDistCommisRate:false
     }
-    $scope.checked = function () {
-        $scope.data.isReset =!angular.copy($scope.data.isReset);
+    $scope.checked = function (key) {
+        $scope.data[key] =!angular.copy($scope.data[key]);
     }
     $scope.item = angular.copy(items);
         angular.forEach($scope.item, function(item,i) {
