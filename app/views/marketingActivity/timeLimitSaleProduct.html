@@ -17,6 +17,13 @@
                         <textarea type="text" class="form-control" ng-model="data.prodId" name="prodIds" placeholder="多个id请用英文逗号隔开"></textarea>
                     </div>
                 </div>
+                <div class="form-group col-lg-6">
+                    <label class="col-md-2 control-label">品牌</label>
+
+                    <div class="col-md-8">
+                        <textarea type="text" class="form-control" ng-model="data.brandName" name="brandNames" placeholder="多个品牌名请用英文逗号隔开"></textarea>
+                    </div>
+                </div>
             </div>
         </section>
         <div class="parameter-btn">
@@ -63,7 +70,7 @@
                     <td class="imgbox"><img src="{{TimeLimitSaleProductList.pic}}" alt="{{TimeLimitSaleProductList.prodName}}"/></td>
                     <td>{{TimeLimitSaleProductList.prodName}}</td>
                     <td>{{TimeLimitSaleProductList.killPrice}}</td>
-                    <td>{{TimeLimitSaleProductList.originalProdPrice}}</td>
+                    <td>{{TimeLimitSaleProductList.price}}</td>
                     <td>
 
                         <a href="javascript:;" class="text-primary" ng-click="editTimeLimitSaleProduct(TimeLimitSaleProductList)">编辑&nbsp;</a>

@@ -46,6 +46,11 @@ App.controller("addTimeLimitSaleProductController", function ($scope, ngProgress
         }else {
             $scope.data.prodIds = [];
         }
+        if(!!$scope.data.brandName){
+            $scope.data.brandNames = angular.copy($scope.data.brandName).split(",");
+        }else {
+            $scope.data.brandNames = [];
+        }
         $scope.progressbar.start();
         console.log("param",$scope.data)
         $scope.activityPromise = restful.fetch($rootScope.api.queryProd, "POST", $scope.data).then(function(res) {
@@ -129,7 +134,11 @@ App.controller("addProductController", function($scope, $uibModalInstance, restf
     $scope.data = {
         activityId:$stateParams.activityId,
         prodIds:[JSON.stringify($scope.item.prodId)],
-        skuList:[]
+        skuList:[],
+        isReset:false
+    }
+    $scope.checked = function () {
+        $scope.data.isReset =!angular.copy($scope.data.isReset);
     }
     $scope.data.skuList = $scope.item.skuList;
     $scope.save = function() {
@@ -162,7 +171,11 @@ App.controller("addAllController", function($scope, $uibModalInstance, restful,$
         prodIds:[],
         priceRate:"",
         killStock:"",
-        limitAmount:""
+        limitAmount:"",
+        isReset:false
+    }
+    $scope.checked = function () {
+        $scope.data.isReset =!angular.copy($scope.data.isReset);
     }
     $scope.item = angular.copy(items);
         angular.forEach($scope.item, function(item,i) {

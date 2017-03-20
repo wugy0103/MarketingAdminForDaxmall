@@ -38,6 +38,11 @@ App.controller("timeLimitSaleProductController", function ($scope, ngProgressFac
         }else {
             $scope.data.prodIds = [];
         }
+        if(!!$scope.data.brandName){
+            $scope.data.brandNames = angular.copy($scope.data.brandName).split(",");
+        }else {
+            $scope.data.brandNames = [];
+        }
         $scope.progressbar.start();
         console.log("param",$scope.data)
         $scope.activityPromise = restful.fetch($rootScope.api.queryMiaoshaProd, "POST", $scope.data).then(function(res) {
